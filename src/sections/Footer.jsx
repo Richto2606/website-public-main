@@ -11,7 +11,7 @@ const Footer = () => {
               {currentYear}
             </p>
             <p className="text-s2 transition-all duration-500 hover:text-p1">
-              Asrama Kutai KartaNegara
+              Asrama Putra Kutai Kartanegara
             </p>
           </div>
 

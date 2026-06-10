@@ -3,7 +3,7 @@ export const socials = [
     id: "0",
     title: "Instagram",
     icon: "/images/icons/socials/ig.svg",
-    url: "#",
+    url: "https://www.instagram.com/asramaputra_kukarjogja/",
   },
   {
     id: "1",
@@ -21,7 +21,7 @@ export const socials = [
     id: "3",
     title: "Youtube",
     icon: "/images/icons/socials/yt.svg",
-    url: "#",
+    url: "https://www.youtube.com/@itoooooo",
   },
 ];
 
@@ -287,6 +287,6 @@ const urlAPIFE = "http://localhost:3000";
 export const urlAPIBE = "http://localhost:8000";
 export const APIKEY = "881182541952993820593968";
 
-export const daftarAsrama = "http://localhost:3000";
+export const daftarAsrama = "/pendaftaran";
 export const adminAsrama = urlAPIFE+"/login";
 export const axiosUrl = urlAPIBE + "/api/v1/public";

@@ -33,16 +33,20 @@ const Header = () => {
     </LinkScroll>
   );
 
-  const NavLinkExternal = ({ title, href }) => (
+  // BAGIAN INI YANG DIUBAH
+  const NavLinkExternal = ({ title }) => (
     <a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
+      href="#"
+      onClick={(e) => {
+        e.preventDefault(); // Mematikan efek lompat/pindah halaman
+        setIsOpen(false);   // Menutup menu jika dibuka di HP
+      }}
       className="base-bold text-p4 uppercase transition-colors duration-500 cursor-pointer hover:text-p1 max-lg:my-4 max-lg:h5"
     >
       {title}
     </a>
   );
+
   return (
     <header
       className={clsx(
@@ -93,7 +97,8 @@ const Header = () => {
                   <NavLink title="bantuan & kontak" />
                   <div className="dot" />
 
-                  <NavLinkExternal title="admin" href={adminAsrama} />
+                  {/* Properti href tidak perlu dipakai lagi */}
+                  <NavLinkExternal title="admin" />
                 </li>
               </ul>
             </nav>
