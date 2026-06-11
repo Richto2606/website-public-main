@@ -283,8 +283,8 @@ export const links = [
   },
 ];
 
-const urlAPIFE = "http://localhost:3000";
-export const urlAPIBE = "http://localhost:8000";
+const urlAPIFE = "https://website-public-main.pages.dev";
+export const urlAPIBE = "https://website-admin-be-main.rexmax2606.workers.dev";
 export const APIKEY = "881182541952993820593968";
 
 export const daftarAsrama = "/pendaftaran";
