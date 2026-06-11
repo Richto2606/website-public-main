@@ -6,6 +6,9 @@ import { adminAsrama } from "../constants";
 const Header = () => {
   const [hasScrolled, setHasScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  
+  // 1. Tambahkan state untuk status login
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -14,10 +17,27 @@ const Header = () => {
 
     window.addEventListener("scroll", handleScroll);
 
+    // 2. Cek token login saat komponen dimuat
+    const token = localStorage.getItem("token");
+    if (token) {
+      setIsLoggedIn(true);
+    }
+
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  // 3. Buat fungsi untuk Logout
+  const handleLogout = (e) => {
+    e.preventDefault(); // Mencegah reload halaman standar
+    localStorage.removeItem("token"); // Hapus token dari browser
+    setIsLoggedIn(false); // Ubah status
+    setIsOpen(false); // Tutup menu jika di HP
+
+    // PERBAIKAN: Arahkan langsung ke halaman login
+    window.location.href = "http://localhost:3000/login"; 
+  };
 
   const NavLink = ({ title }) => (
     <LinkScroll
@@ -33,13 +53,17 @@ const Header = () => {
     </LinkScroll>
   );
 
-  // BAGIAN INI YANG DIUBAH
-  const NavLinkExternal = ({ title }) => (
+  // 4. Modifikasi dikembalikan agar class CSS sama persis dengan NavLink
+  const NavLinkExternal = ({ title, href, onClick }) => (
     <a
-      href="#"
+      href={href || "#"}
       onClick={(e) => {
-        e.preventDefault(); // Mematikan efek lompat/pindah halaman
-        setIsOpen(false);   // Menutup menu jika dibuka di HP
+        if (onClick) {
+          onClick(e);
+        } else if (!href || href === "#") {
+          e.preventDefault(); 
+        }
+        setIsOpen(false);  
       }}
       className="base-bold text-p4 uppercase transition-colors duration-500 cursor-pointer hover:text-p1 max-lg:my-4 max-lg:h5"
     >
@@ -51,7 +75,7 @@ const Header = () => {
     <header
       className={clsx(
         "fixed top-0 left-0 z-50 w-full py-10 transition-all duration-500 max-lg:py-4",
-        hasScrolled && "py-2 bg-black-100 backdrop-blur-[8px]",
+        hasScrolled && "py-2 bg-black-100 backdrop-blur-[8px]"
       )}
     >
       <div className="container flex h-14 items-center max-lg:px-5">
@@ -62,7 +86,7 @@ const Header = () => {
         <div
           className={clsx(
             "w-full max-lg:fixed max-lg:top-0 max-lg:left-0 max-lg:w-full max-lg:bg-s2 max-lg:opacity-0",
-            isOpen ? "max-lg:opacity-100" : "max-lg:pointer-events-none",
+            isOpen ? "max-lg:opacity-100" : "max-lg:pointer-events-none"
           )}
         >
           <div className="max-lg:relative max-lg:flex max-lg:flex-col max-lg:min-h-screen max-lg:p-6 max-lg:overflow-hidden sidebar-before max-md:px-4">
@@ -81,7 +105,7 @@ const Header = () => {
                     spy
                     smooth
                     className={clsx(
-                      "max-lg:hidden transition-transform duration-500 cursor-pointer",
+                      "max-lg:hidden transition-transform duration-500 cursor-pointer"
                     )}
                   >
                     <img
@@ -97,8 +121,18 @@ const Header = () => {
                   <NavLink title="bantuan & kontak" />
                   <div className="dot" />
 
-                  {/* Properti href tidak perlu dipakai lagi */}
-                  <NavLinkExternal title="admin" />
+                  {/* 5. PERBAIKAN: Mengembalikan struktur kondisi Logika Tampil/Sembunyi dengan benar */}
+                  {isLoggedIn ? (
+                    <NavLinkExternal 
+                      title="logout" 
+                      onClick={handleLogout} 
+                    />
+                  ) : (
+                    <NavLinkExternal 
+                      title="admin" 
+                      href="http://localhost:3000/login" 
+                    />
+                  )}
                 </li>
               </ul>
             </nav>
