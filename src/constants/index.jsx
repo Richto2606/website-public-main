@@ -283,10 +283,17 @@ export const links = [
   },
 ];
 
-const urlAPIFE = "https://website-public-main.pages.dev";
-export const urlAPIBE = "https://website-admin-be-main.rexmax2606.workers.dev";
+// Sesuaikan dengan domain utama Anda
+const urlAPIFE = "https://asramaputrakukar.my.id"; 
+
+// INI KUNCI UTAMANYA: Arahkan ke gerbang API cPanel Anda
+export const urlAPIBE = "https://api.asramaputrakukar.my.id"; 
+
 export const APIKEY = "881182541952993820593968";
 
+// Gunakan path relatif agar aman saat di-deploy
 export const daftarAsrama = "/pendaftaran";
-export const adminAsrama = urlAPIFE+"/login";
+export const adminAsrama = "/login"; 
+
+// Ini otomatis akan menjadi: https://api.asramaputrakukar.my.id/api/v1/public
 export const axiosUrl = urlAPIBE + "/api/v1/public";
