@@ -36,7 +36,7 @@ const Header = () => {
     setIsOpen(false); // Tutup menu jika di HP
 
     // PERBAIKAN: Arahkan langsung ke halaman login
-    window.location.href = "http://localhost:3000/login"; 
+    window.location.href = "https://admin.asramaputrakukar.my.id/login";
   };
 
   const NavLink = ({ title }) => (
@@ -130,7 +130,7 @@ const Header = () => {
                   ) : (
                     <NavLinkExternal 
                       title="admin" 
-                      href="http://localhost:3000/login" 
+                      href="https://admin.asramaputrakukar.my.id/login"
                     />
                   )}
                 </li>
