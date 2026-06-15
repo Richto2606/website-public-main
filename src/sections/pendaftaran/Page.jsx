@@ -37,7 +37,7 @@ export default function PendaftaranPage() {
     }
 
     try {
-      const response = await fetch('http://127.0.0.1:8000/api/v1/pendaftaran', {
+      const response = await fetch('https://asramaputrakukar.my.id/api/v1/pendaftaran', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
