@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 export default function PendaftaranPage() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -9,6 +10,7 @@ export default function PendaftaranPage() {
     program_studi: '',
     jenis_kelamin: 'Laki-laki',
     no_hp: '',
+    email: '', // <-- TAMBAHKAN
     alamat_asal: ''
   });
 
@@ -27,7 +29,6 @@ export default function PendaftaranPage() {
     setLoading(true);
     setMessage({ type: '', text: '' });
 
-    // Ambil token dari brankas Vite
     const token = localStorage.getItem('token'); 
 
     if (!token) {
@@ -43,8 +44,6 @@ export default function PendaftaranPage() {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
           'Authorization': `Bearer ${token}`,
-          // Tambahkan baris API Key di bawah ini!
-          // Sesuaikan nama headernya ('x-api-key' atau 'api-key') dengan yang diminta Laravel-mu
           'x-api-key': '881182541952993820593968' 
         },
         body: JSON.stringify(formData)
@@ -55,15 +54,19 @@ export default function PendaftaranPage() {
       if (response.ok) {
         setMessage({ type: 'success', text: 'Pendaftaran Anda berhasil dikirim! Mengalihkan ke beranda...' });
         
-        // Kosongkan form kembali
         setFormData({
-          nama_lengkap: '', nim: '', universitas: '', program_studi: '',
-          jenis_kelamin: 'Laki-laki', no_hp: '', alamat_asal: ''
+          nama_lengkap: '', 
+          nim: '', 
+          universitas: '', 
+          program_studi: '',
+          jenis_kelamin: 'Laki-laki', 
+          no_hp: '',
+          email: '', // <-- TAMBAHKAN
+          alamat_asal: ''
         });
 
-        // Lempar ke beranda setelah jeda 2 detik
         setTimeout(() => {
-          navigate('/'); // Pindah ke route utama (Beranda)
+          navigate('/');
         }, 2000); 
 
       } else {
@@ -123,6 +126,20 @@ export default function PendaftaranPage() {
           <input type="text" name="no_hp" value={formData.no_hp} onChange={handleChange} className="w-full p-2 border rounded" required />
         </div>
 
+        {/* INPUT EMAIL */}
+        <div>
+          <label className="block font-semibold mb-1">Email</label>
+          <input 
+            type="email" 
+            name="email" 
+            value={formData.email} 
+            onChange={handleChange} 
+            className="w-full p-2 border rounded" 
+            placeholder="Masukkan email aktif"
+            required 
+          />
+        </div>
+
         <div>
           <label className="block font-semibold mb-1">Alamat Asal</label>
           <textarea name="alamat_asal" value={formData.alamat_asal} onChange={handleChange} className="w-full p-2 border rounded h-24" required></textarea>
@@ -134,4 +151,4 @@ export default function PendaftaranPage() {
       </form>
     </div>
   );
-}   
+}
