@@ -214,7 +214,7 @@ export const faq = [
   },
   {
     id: "5",
-    question: "WBerapa biaya tinggal di asrama?",
+    question: "Berapa biaya tinggal di asrama?",
     answer:
       "Jawaban",
   },

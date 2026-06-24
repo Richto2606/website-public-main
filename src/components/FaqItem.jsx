@@ -17,14 +17,16 @@ const FaqItem = ({ item, index }) => {
         }}
       >
         <div className="flex-1">
-          <div className="small-compact mb-1.5 text-p3 max-lg:hidden">
+          <div className="small-compact mb-1.5 text-p1 max-lg:hidden font-bold">
             {index < 10 ? "0" : ""}
-            {index+1}
+            {index + 1}
           </div>
+          
+          {/* PERBAIKAN: Logika warna teks. Hitam saat tertutup, Putih saat terbuka */}
           <div
             className={clsx(
-              "h6 text-p4 transition-colors duration-500 max-md:flex max-md:min-h-20 max-md:items-center",
-              active && "max-lg:text-p1",
+              "h6 transition-colors duration-500 max-md:flex max-md:min-h-20 max-md:items-center",
+              active ? "text-s1" : "text-p2 group-hover:text-p1"
             )}
           >
             {item.question}
@@ -33,8 +35,8 @@ const FaqItem = ({ item, index }) => {
 
         <div
           className={clsx(
-            "faq-icon relative flex size-12 items-center justify-center rounded-full border-2 border-s2 shadow-400 transition-all duration-500 group-hover:border-s4",
-            active && "before:bg-p1 after:rotate-0 after:bg-p1",
+            "faq-icon relative flex size-12 items-center justify-center rounded-full border-2 shadow-400 transition-all duration-500",
+            active ? "before:bg-p1 after:rotate-0 after:bg-p1 border-p1" : "border-s3 group-hover:border-p1"
           )}
         >
           <div className="g4 size-11/12 rounded-full shadow-300" />
@@ -43,7 +45,7 @@ const FaqItem = ({ item, index }) => {
 
       <SlideDown>
         {activeId === item.id && (
-          <div className="body-3 px-7 py-3.5">
+          <div className="body-3 px-7 py-3.5 text-s3 leading-relaxed">
             {item.answer}
           </div>
         )}
@@ -61,4 +63,5 @@ const FaqItem = ({ item, index }) => {
     </div>
   );
 };
+
 export default FaqItem;

@@ -10,20 +10,25 @@ export default {
         'section-contact' : "url('/images/contact/bg-contact.png')",
       },
       colors: {
-        p1: "#2EF2FF",
-        p2: "#3C52D9",
-        p3: "#C8EA80",
-        p4: "#EAEDFF",
-        p5: "#C4CBF5",
-        s1: "#CCBB22",
-        s2: "#865C12",
-        s3: "#334679",
-        s4: "#1959AD",
-        s5: "#263466",
+        // Skema Warna Baru
+        p1: "#FFD500", // Kuning Bumble (untuk aksen, bingkai, atau ikon)
+        p2: "#121212", // Hitam pekat untuk teks judul agar sangat kontras
+        p3: "#1A1A1A",
+        p4: "#111111",
+        p5: "#3D3D3D",
+        s1: "#FFFFFF", // Background utama menjadi putih bersih
+        s2: "#121212", // Teks deskripsi gelap
+        s3: "#E8E8E8",
+        s4: "#FFD500", 
+        s5: "#D4D4D4",
         black: {
           DEFAULT: "#000000",
           100: "#808080",
         },
+        navy: {
+          DEFAULT: "#1F3877", // Warna biru tombol dipertahankan
+          hover: "#152654"
+        }
       },
       boxShadow: {
         100: "0px 4px 4px rgba(0, 0, 0, 0.25), 0px 16px 24px rgba(0, 0, 0, 0.25), inset 0px 3px 6px #1959AD",
@@ -91,4 +96,3 @@ export default {
   },
   plugins: [],
 }
-

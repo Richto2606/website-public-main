@@ -25,10 +25,16 @@ const About = () => {
                   </div>
                 </div>
 
-                <p className="caption mb-5 max-md:mb-6 uppercase">{title}</p>
-                <p className="mb-11 body-1 max-md:mb-8 max-md:body-3">
+                {/* PERBAIKAN: Memperbesar ukuran judul, menebalkannya, dan mengubah warnanya menjadi Kuning Bumble */}
+                <p className="mb-5 max-md:mb-6 uppercase text-p1 text-3xl md:text-4xl font-bold tracking-wider">
+                  {title}
+                </p>
+                
+                {/* PERBAIKAN: Mengubah warna teks deskripsi menjadi abu-abu terang (text-s3) agar kontras */}
+                <p className="mb-11 body-1 text-s3 max-md:mb-8 max-md:body-3">
                   {description}
                 </p>
+                
                 {isItems && items && (
                   <div className="grid grid-cols-2 gap-4">
                     {items.map(({ id, icon, title, text }) => (
@@ -41,7 +47,8 @@ const About = () => {
                           />
                         </div>
                         <div>
-                          <p className="font-semibold">{title}</p>
+                          {/* PERBAIKAN: Mengubah warna sub-judul item menjadi putih bersih (text-s1) */}
+                          <p className="font-semibold text-s1">{title}</p>
                           <p className="text-gray-300 text-sm">
                             {text}
                           </p>
@@ -59,4 +66,5 @@ const About = () => {
     </section>
   );
 };
+
 export default About;

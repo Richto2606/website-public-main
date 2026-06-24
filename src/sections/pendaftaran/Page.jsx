@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react'; // <-- Tambahkan useEffect
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2'; // Import SweetAlert2
 
 export default function PendaftaranPage() {
   const navigate = useNavigate();
@@ -15,10 +16,9 @@ export default function PendaftaranPage() {
   });
 
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState({ type: '', text: '' });
-  const [userLoaded, setUserLoaded] = useState(false); // <-- Tambahkan state
+  const [userLoaded, setUserLoaded] = useState(false);
 
-  // 🔥 AUTO-FILL EMAIL DARI DATA USER
+  // AUTO-FILL EMAIL DARI DATA USER
   useEffect(() => {
     const fetchUserData = async () => {
       const token = localStorage.getItem('token');
@@ -69,19 +69,29 @@ export default function PendaftaranPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setMessage({ type: '', text: '' });
 
     const token = localStorage.getItem('token');
 
+    // Validasi Token
     if (!token) {
-      setMessage({ type: 'error', text: 'Anda harus login terlebih dahulu untuk mendaftar.' });
+      Swal.fire({
+        icon: 'warning',
+        title: 'Akses Ditolak',
+        text: 'Anda harus login terlebih dahulu untuk mendaftar.',
+        confirmButtonColor: '#1F3877'
+      });
       setLoading(false);
       return;
     }
 
-    // Validasi email harus terisi
+    // Validasi Email
     if (!formData.email) {
-      setMessage({ type: 'error', text: 'Email tidak boleh kosong. Silakan login ulang.' });
+      Swal.fire({
+        icon: 'error',
+        title: 'Data Tidak Lengkap',
+        text: 'Email tidak boleh kosong. Silakan login ulang.',
+        confirmButtonColor: '#1F3877'
+      });
       setLoading(false);
       return;
     }
@@ -101,9 +111,15 @@ export default function PendaftaranPage() {
       const result = await response.json();
 
       if (response.ok) {
-        setMessage({ type: 'success', text: 'Pendaftaran Anda berhasil dikirim! Mengalihkan ke beranda...' });
+        // Notifikasi Sukses
+        Swal.fire({
+          icon: 'success',
+          title: 'Berhasil!',
+          text: 'Pendaftaran Anda berhasil dikirim.',
+          showConfirmButton: false,
+          timer: 2000
+        });
 
-        // Reset form tapi pertahankan email
         setFormData({
           nama_lengkap: '',
           nim: '',
@@ -111,7 +127,7 @@ export default function PendaftaranPage() {
           program_studi: '',
           jenis_kelamin: 'Laki-laki',
           no_hp: '',
-          email: formData.email, // Pertahankan email
+          email: formData.email,
           alamat_asal: ''
         });
 
@@ -120,141 +136,157 @@ export default function PendaftaranPage() {
         }, 2000);
 
       } else {
-        setMessage({ type: 'error', text: result.message || 'Gagal mengirim pendaftaran.' });
+        // Notifikasi Gagal dari API
+        Swal.fire({
+          icon: 'error',
+          title: 'Pendaftaran Gagal',
+          text: result.message || 'Pastikan data yang Anda masukkan sudah benar.',
+          confirmButtonColor: '#1F3877'
+        });
       }
     } catch (error) {
       console.error('Koneksi error:', error);
-      setMessage({ type: 'error', text: 'Gagal terhubung ke server backend.' });
+      // Notifikasi Error Server/Koneksi
+      Swal.fire({
+        icon: 'error',
+        title: 'Koneksi Terputus',
+        text: 'Gagal terhubung ke server. Silakan coba beberapa saat lagi.',
+        confirmButtonColor: '#1F3877'
+      });
     } finally {
       setLoading(false);
     }
   };
 
+  const inputStyle = "w-full p-3 border border-slate-200 rounded-xl bg-slate-50 text-black placeholder-gray-400 focus:outline-none focus:border-p1 focus:ring-1 focus:ring-p1 transition-all duration-300";
+
   return (
-    <div className="max-w-2xl mx-auto my-10 p-6 bg-white shadow-md rounded-lg text-black">
-      <h2 className="text-2xl font-bold text-center mb-2">Form Pendaftaran Anggota Baru</h2>
-      <p className="text-center text-gray-600 mb-6">Sistem Informasi Asrama Kutai Kartanegara Yogyakarta</p>
+    <div className="w-full min-h-screen bg-slate-50 py-12 px-4">
+      <div className="max-w-2xl mx-auto p-8 sm:p-10 bg-white shadow-xl rounded-2xl text-black border border-slate-100 relative overflow-hidden">
+        
+        <div className="absolute top-0 left-0 right-0 h-1.5 bg-p1" />
 
-      {message.text && (
-        <div className={`p-4 mb-6 rounded ${message.type === 'success' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
-          {message.text}
-        </div>
-      )}
+        <h2 className="text-3xl font-extrabold text-center mb-2 tracking-tight text-slate-800">Form Pendaftaran Anggota Baru</h2>
+        <p className="text-center text-gray-500 font-medium mb-8">Sistem Informasi Asrama Kutai Kartanegara Yogyakarta</p>
 
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-        <div>
-          <label className="block font-semibold mb-1">Nama Lengkap</label>
-          <input 
-            type="text" 
-            name="nama_lengkap" 
-            value={formData.nama_lengkap} 
-            onChange={handleChange} 
-            className="w-full p-2 border rounded bg-gray-50" 
-            required 
-          />
-        </div>
-
-        <div className="flex gap-4">
-          <div className="flex-1">
-            <label className="block font-semibold mb-1">NIM</label>
+        <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+          <div>
+            <label className="block font-semibold text-slate-700 mb-1.5 text-sm">Nama Lengkap</label>
             <input 
               type="text" 
-              name="nim" 
-              value={formData.nim} 
+              name="nama_lengkap" 
+              value={formData.nama_lengkap} 
               onChange={handleChange} 
-              className="w-full p-2 border rounded" 
+              className={inputStyle}
+              placeholder="Masukkan nama lengkap"
               required 
             />
           </div>
-          <div className="flex-1">
-            <label className="block font-semibold mb-1">Jenis Kelamin</label>
-            <select 
-              name="jenis_kelamin" 
-              value={formData.jenis_kelamin} 
-              onChange={handleChange} 
-              className="w-full p-2 border rounded"
-            >
-              <option value="Laki-laki">Laki-laki</option>
-              <option value="Perempuan">Perempuan</option>
-            </select>
+
+          <div className="flex flex-col sm:flex-row gap-5">
+            <div className="flex-1">
+              <label className="block font-semibold text-slate-700 mb-1.5 text-sm">NIM</label>
+              <input 
+                type="text" 
+                name="nim" 
+                value={formData.nim} 
+                onChange={handleChange} 
+                className={inputStyle}
+                placeholder="Masukkan NIM"
+                required 
+              />
+            </div>
+            <div className="flex-1">
+              <label className="block font-semibold text-slate-700 mb-1.5 text-sm">Jenis Kelamin</label>
+              <select 
+                name="jenis_kelamin" 
+                value={formData.jenis_kelamin} 
+                onChange={handleChange} 
+                className={`${inputStyle} h-[49.5px] cursor-pointer`}
+              >
+                <option value="Laki-laki">Laki-laki</option>
+                <option value="Perempuan">Perempuan</option>
+              </select>
+            </div>
           </div>
-        </div>
 
-        <div>
-          <label className="block font-semibold mb-1">Universitas</label>
-          <input 
-            type="text" 
-            name="universitas" 
-            value={formData.universitas} 
-            onChange={handleChange} 
-            className="w-full p-2 border rounded" 
-            required 
-          />
-        </div>
+          <div>
+            <label className="block font-semibold text-slate-700 mb-1.5 text-sm">Universitas</label>
+            <input 
+              type="text" 
+              name="universitas" 
+              value={formData.universitas} 
+              onChange={handleChange} 
+              className={inputStyle}
+              placeholder="Contoh: Universitas Atma Jaya Yogyakarta"
+              required 
+            />
+          </div>
 
-        <div>
-          <label className="block font-semibold mb-1">Program Studi</label>
-          <input 
-            type="text" 
-            name="program_studi" 
-            value={formData.program_studi} 
-            onChange={handleChange} 
-            className="w-full p-2 border rounded" 
-            required 
-          />
-        </div>
+          <div>
+            <label className="block font-semibold text-slate-700 mb-1.5 text-sm">Program Studi</label>
+            <input 
+              type="text" 
+              name="program_studi" 
+              value={formData.program_studi} 
+              onChange={handleChange} 
+              className={inputStyle}
+              placeholder="Contoh: Informatika"
+              required 
+            />
+          </div>
 
-        <div>
-          <label className="block font-semibold mb-1">No. HP / WhatsApp</label>
-          <input 
-            type="text" 
-            name="no_hp" 
-            value={formData.no_hp} 
-            onChange={handleChange} 
-            className="w-full p-2 border rounded" 
-            required 
-          />
-        </div>
+          <div>
+            <label className="block font-semibold text-slate-700 mb-1.5 text-sm">No. HP / WhatsApp</label>
+            <input 
+              type="text" 
+              name="no_hp" 
+              value={formData.no_hp} 
+              onChange={handleChange} 
+              className={inputStyle}
+              placeholder="Contoh: 081234567890"
+              required 
+            />
+          </div>
 
-        {/* 🔥 INPUT EMAIL - OTOMATIS TERISI & READONLY */}
-        <div>
-          <label className="block font-semibold mb-1">Email</label>
-          <input 
-            type="email" 
-            name="email" 
-            value={formData.email} 
-            onChange={handleChange} 
-            className={`w-full p-2 border rounded ${userLoaded ? 'bg-gray-100 cursor-not-allowed' : 'bg-yellow-50'}`}
-            placeholder={userLoaded ? 'Email dari akun Anda' : 'Memuat email...'}
-            readOnly={userLoaded}
-            required 
-          />
-          <p className="text-xs text-gray-500 mt-1">
-            {userLoaded ? '✉️ Email otomatis dari akun registrasi Anda' : '⏳ Sedang memuat data user...'}
-          </p>
-        </div>
+          <div>
+            <label className="block font-semibold text-slate-700 mb-1.5 text-sm">Email</label>
+            <input 
+              type="email" 
+              name="email" 
+              value={formData.email} 
+              onChange={handleChange} 
+              className={`w-full p-3 border border-slate-200 rounded-xl transition-all duration-300 ${userLoaded ? 'bg-slate-100 text-gray-500 cursor-not-allowed border-dashed' : 'bg-yellow-50 focus:outline-none focus:border-p1'}`}
+              placeholder={userLoaded ? 'Email dari akun Anda' : 'Memuat email...'}
+              readOnly={userLoaded}
+              required 
+            />
+            <p className="text-xs font-medium text-gray-400 mt-1.5 px-1">
+              {userLoaded ? '✉️ Email terkunci otomatis dari akun login Anda' : '⏳ Sedang memuat data user...'}
+            </p>
+          </div>
 
-        <div>
-          <label className="block font-semibold mb-1">Alamat Asal</label>
-          <textarea 
-            name="alamat_asal" 
-            value={formData.alamat_asal} 
-            onChange={handleChange} 
-            className="w-full p-2 border rounded h-24" 
-            required
-          ></textarea>
-        </div>
+          <div>
+            <label className="block font-semibold text-slate-700 mb-1.5 text-sm">Alamat Asal</label>
+            <textarea 
+              name="alamat_asal" 
+              value={formData.alamat_asal} 
+              onChange={handleChange} 
+              className={`${inputStyle} h-28 resize-none`}
+              placeholder="Masukkan alamat lengkap asal (Kutai Kartanegara)"
+              required
+            ></textarea>
+          </div>
 
-        <button 
-          type="submit" 
-          disabled={loading} 
-          className={`w-full p-3 text-white font-bold rounded ${loading ? 'bg-gray-400' : 'bg-blue-600 hover:bg-blue-700'}`}
-        >
-          {loading ? 'Mengirim Pendaftaran...' : 'Kirim Pendaftaran'}
-        </button>
-      </form>
+          <button 
+            type="submit" 
+            disabled={loading} 
+            className={`w-full p-4 text-white font-bold rounded-xl shadow-md transition-all duration-300 tracking-wide mt-2 ${loading ? 'bg-slate-300 cursor-not-allowed shadow-none' : 'bg-blue-600 hover:bg-blue-700 hover:shadow-lg active:scale-[0.99]'}`}
+          >
+            {loading ? 'Mengirim Pendaftaran...' : 'Kirim Pendaftaran'}
+          </button>
+        </form>
+      </div>
     </div>
   );
-}git add .
-git commit -m "Add pendaftaran page with email column"
-git push origin main
+}
