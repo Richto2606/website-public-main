@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Swal from 'sweetalert2'; // Import SweetAlert2
+import Swal from 'sweetalert2';
 
 export default function PendaftaranPage() {
   const navigate = useNavigate();
@@ -18,16 +18,49 @@ export default function PendaftaranPage() {
   const [loading, setLoading] = useState(false);
   const [userLoaded, setUserLoaded] = useState(false);
 
-  // AUTO-FILL EMAIL DARI DATA USER
+  // ============================================================
+  // 🔥 USEFFECT: BACA TOKEN DARI URL & LOCALSTORAGE
+  // ============================================================
   useEffect(() => {
-    const fetchUserData = async () => {
-      const token = localStorage.getItem('token');
+    // 🔥 1. CEK TOKEN DI URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const tokenFromUrl = urlParams.get('token');
+    
+    console.log('🔍 ===== PUBLIC MAIN DEBUG =====');
+    console.log('🔍 URL:', window.location.href);
+    console.log('🔍 Token dari URL:', tokenFromUrl);
+    
+    if (tokenFromUrl) {
+      // Simpan token ke localStorage
+      localStorage.setItem('token', tokenFromUrl);
       
-      if (!token) {
-        console.log('Token tidak ditemukan');
-        return;
-      }
+      // Hapus token dari URL (biar tidak terekspos)
+      window.history.replaceState({}, document.title, window.location.pathname);
+      
+      console.log('✅ Token saved from URL:', tokenFromUrl);
+    }
 
+    // 🔥 2. CEK TOKEN DI LOCALSTORAGE
+    const token = localStorage.getItem('token');
+    console.log('🔍 Token di localStorage:', token);
+    console.log('🔍 User di localStorage:', localStorage.getItem('user'));
+    console.log('🔍 ===== END DEBUG =====');
+
+    // 🔥 3. VALIDASI TOKEN
+    if (!token) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Akses Ditolak',
+        text: 'Anda harus login terlebih dahulu untuk mendaftar.',
+        confirmButtonColor: '#1F3877'
+      });
+      // Redirect ke halaman login admin
+      window.location.href = 'https://admin.asramaputrakukar.my.id/login';
+      return;
+    }
+
+    // 🔥 4. AMBIL DATA USER DARI API
+    const fetchUserData = async () => {
       try {
         const response = await fetch('https://asramaputrakukar.my.id/api/v1/user/profile', {
           method: 'GET',
@@ -48,11 +81,12 @@ export default function PendaftaranPage() {
             nama_lengkap: userData.name || userData.nama_lengkap || ''
           }));
           setUserLoaded(true);
+          console.log('✅ User data loaded:', userData);
         } else {
-          console.error('Gagal ambil data user:', response.status);
+          console.error('❌ Gagal ambil data user:', response.status);
         }
       } catch (error) {
-        console.error('Error fetch user data:', error);
+        console.error('❌ Error fetch user data:', error);
       }
     };
 
@@ -71,6 +105,7 @@ export default function PendaftaranPage() {
     setLoading(true);
 
     const token = localStorage.getItem('token');
+    console.log('🔍 Token saat submit:', token);
 
     // Validasi Token
     if (!token) {
@@ -109,9 +144,9 @@ export default function PendaftaranPage() {
       });
 
       const result = await response.json();
+      console.log('📡 Response submit:', result);
 
       if (response.ok) {
-        // Notifikasi Sukses
         Swal.fire({
           icon: 'success',
           title: 'Berhasil!',
@@ -136,7 +171,6 @@ export default function PendaftaranPage() {
         }, 2000);
 
       } else {
-        // Notifikasi Gagal dari API
         Swal.fire({
           icon: 'error',
           title: 'Pendaftaran Gagal',
@@ -145,8 +179,7 @@ export default function PendaftaranPage() {
         });
       }
     } catch (error) {
-      console.error('Koneksi error:', error);
-      // Notifikasi Error Server/Koneksi
+      console.error('❌ Koneksi error:', error);
       Swal.fire({
         icon: 'error',
         title: 'Koneksi Terputus',
