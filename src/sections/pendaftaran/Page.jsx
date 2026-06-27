@@ -12,7 +12,12 @@ export default function PendaftaranPage() {
     jenis_kelamin: 'Laki-laki',
     no_hp: '',
     email: '',
-    alamat_asal: ''
+    alamat_asal: '',
+    nama_wali: '',
+    semester: '',
+    no_ortu_wali: '',
+    nama_ortu_wali: '',
+    file_berkas: null
   });
 
   const [loading, setLoading] = useState(false);
@@ -22,7 +27,6 @@ export default function PendaftaranPage() {
   // 🔥 USEFFECT: BACA TOKEN DARI URL & LOCALSTORAGE
   // ============================================================
   useEffect(() => {
-    // 🔥 1. CEK TOKEN DI URL
     const urlParams = new URLSearchParams(window.location.search);
     const tokenFromUrl = urlParams.get('token');
     
@@ -31,22 +35,16 @@ export default function PendaftaranPage() {
     console.log('🔍 Token dari URL:', tokenFromUrl);
     
     if (tokenFromUrl) {
-      // Simpan token ke localStorage
       localStorage.setItem('token', tokenFromUrl);
-      
-      // Hapus token dari URL (biar tidak terekspos)
       window.history.replaceState({}, document.title, window.location.pathname);
-      
       console.log('✅ Token saved from URL:', tokenFromUrl);
     }
 
-    // 🔥 2. CEK TOKEN DI LOCALSTORAGE
     const token = localStorage.getItem('token');
     console.log('🔍 Token di localStorage:', token);
     console.log('🔍 User di localStorage:', localStorage.getItem('user'));
     console.log('🔍 ===== END DEBUG =====');
 
-    // 🔥 3. VALIDASI TOKEN
     if (!token) {
       Swal.fire({
         icon: 'warning',
@@ -54,12 +52,10 @@ export default function PendaftaranPage() {
         text: 'Anda harus login terlebih dahulu untuk mendaftar.',
         confirmButtonColor: '#1F3877'
       });
-      // Redirect ke halaman login admin
       window.location.href = 'https://admin.asramaputrakukar.my.id/login';
       return;
     }
 
-    // 🔥 4. AMBIL DATA USER DARI API
     const fetchUserData = async () => {
       try {
         const response = await fetch('https://asramaputrakukar.my.id/api/v1/user/profile', {
@@ -100,6 +96,41 @@ export default function PendaftaranPage() {
     });
   };
 
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      // Validasi ukuran file (max 2MB)
+      if (file.size > 2 * 1024 * 1024) {
+        Swal.fire({
+          icon: 'error',
+          title: 'File Terlalu Besar',
+          text: 'Ukuran file maksimal 2MB.',
+          confirmButtonColor: '#1F3877'
+        });
+        e.target.value = '';
+        return;
+      }
+      
+      // Validasi tipe file
+      const allowedTypes = ['application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'image/jpeg', 'image/png', 'application/pdf'];
+      if (!allowedTypes.includes(file.type)) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Format File Tidak Didukung',
+          text: 'Hanya file DOC, DOCX, JPG, JPEG, PNG, PDF yang diperbolehkan.',
+          confirmButtonColor: '#1F3877'
+        });
+        e.target.value = '';
+        return;
+      }
+      
+      setFormData({
+        ...formData,
+        file_berkas: file
+      });
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -107,7 +138,6 @@ export default function PendaftaranPage() {
     const token = localStorage.getItem('token');
     console.log('🔍 Token saat submit:', token);
 
-    // Validasi Token
     if (!token) {
       Swal.fire({
         icon: 'warning',
@@ -119,7 +149,6 @@ export default function PendaftaranPage() {
       return;
     }
 
-    // Validasi Email
     if (!formData.email) {
       Swal.fire({
         icon: 'error',
@@ -131,16 +160,33 @@ export default function PendaftaranPage() {
       return;
     }
 
+    // 🔥 BUAT FormData UNTUK MENGIRIM FILE
+    const formDataToSend = new FormData();
+    formDataToSend.append('nama_lengkap', formData.nama_lengkap || '');
+    formDataToSend.append('nim', formData.nim || '');
+    formDataToSend.append('universitas', formData.universitas || '');
+    formDataToSend.append('program_studi', formData.program_studi || '');
+    formDataToSend.append('jenis_kelamin', formData.jenis_kelamin || 'Laki-laki');
+    formDataToSend.append('no_hp', formData.no_hp || '');
+    formDataToSend.append('email', formData.email || '');
+    formDataToSend.append('alamat_asal', formData.alamat_asal || '');
+    formDataToSend.append('nama_wali', formData.nama_wali || '');
+    formDataToSend.append('semester', formData.semester || '');
+    formDataToSend.append('no_ortu_wali', formData.no_ortu_wali || '');
+    formDataToSend.append('nama_ortu_wali', formData.nama_ortu_wali || '');
+    if (formData.file_berkas) {
+      formDataToSend.append('file_berkas', formData.file_berkas);
+    }
+
     try {
       const response = await fetch('https://asramaputrakukar.my.id/api/v1/pendaftaran', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
           'Authorization': `Bearer ${token}`,
           'x-api-key': '881182541952993820593968'
+          // 🔥 JANGAN PAKAI 'Content-Type'! Biarkan browser yang set
         },
-        body: JSON.stringify(formData)
+        body: formDataToSend
       });
 
       const result = await response.json();
@@ -163,8 +209,17 @@ export default function PendaftaranPage() {
           jenis_kelamin: 'Laki-laki',
           no_hp: '',
           email: formData.email,
-          alamat_asal: ''
+          alamat_asal: '',
+          nama_wali: '',
+          semester: '',
+          no_ortu_wali: '',
+          nama_ortu_wali: '',
+          file_berkas: null
         });
+
+        // Reset input file
+        const fileInput = document.getElementById('file_berkas');
+        if (fileInput) fileInput.value = '';
 
         setTimeout(() => {
           navigate('/');
@@ -309,6 +364,79 @@ export default function PendaftaranPage() {
               placeholder="Masukkan alamat lengkap asal (Kutai Kartanegara)"
               required
             ></textarea>
+          </div>
+
+          {/* 🔥 FIELD BARU: Nama Wali */}
+          <div>
+            <label className="block font-semibold text-slate-700 mb-1.5 text-sm">Nama Wali</label>
+            <input 
+              type="text" 
+              name="nama_wali" 
+              value={formData.nama_wali} 
+              onChange={handleChange} 
+              className={inputStyle}
+              placeholder="Masukkan nama wali"
+            />
+          </div>
+
+          {/* 🔥 FIELD BARU: Semester */}
+          <div>
+            <label className="block font-semibold text-slate-700 mb-1.5 text-sm">Semester</label>
+            <input 
+              type="number" 
+              name="semester" 
+              value={formData.semester} 
+              onChange={handleChange} 
+              className={inputStyle}
+              placeholder="Contoh: 4"
+              min="1"
+              max="14"
+            />
+          </div>
+
+          {/* 🔥 FIELD BARU: No Orang Tua/Wali */}
+          <div>
+            <label className="block font-semibold text-slate-700 mb-1.5 text-sm">No. Telepon Orang Tua/Wali</label>
+            <input 
+              type="text" 
+              name="no_ortu_wali" 
+              value={formData.no_ortu_wali} 
+              onChange={handleChange} 
+              className={inputStyle}
+              placeholder="Contoh: 081234567890"
+            />
+          </div>
+
+          {/* 🔥 FIELD BARU: Nama Orang Tua/Wali (Ayah) */}
+          <div>
+            <label className="block font-semibold text-slate-700 mb-1.5 text-sm">Nama Orang Tua/Wali (Ayah)</label>
+            <input 
+              type="text" 
+              name="nama_ortu_wali" 
+              value={formData.nama_ortu_wali} 
+              onChange={handleChange} 
+              className={inputStyle}
+              placeholder="Masukkan nama ayah/wali"
+            />
+          </div>
+
+          {/* 🔥 FIELD BARU: Upload Berkas */}
+          <div>
+            <label className="block font-semibold text-slate-700 mb-1.5 text-sm">Upload Berkas</label>
+            <input 
+              type="file" 
+              id="file_berkas"
+              name="file_berkas" 
+              onChange={handleFileChange}
+              className={`${inputStyle} p-2 cursor-pointer`}
+              accept=".doc,.docx,.jpg,.jpeg,.png,.pdf"
+            />
+            <p className="text-xs text-gray-400 mt-1">Format: DOC, DOCX, JPG, JPEG, PNG, PDF (Max 2MB)</p>
+            {formData.file_berkas && (
+              <p className="text-xs text-green-600 mt-1">
+                ✅ File terpilih: {formData.file_berkas.name}
+              </p>
+            )}
           </div>
 
           <button 
