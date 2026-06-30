@@ -73,12 +73,12 @@ const Gallery = () => {
         <div className="container">
           <div className="flex items-center">
             <div className="relative mr-6 flex-540 max-xl:flex-280 max-lg:flex256 max-md:flex-100">
-              <div className="mb-10">
-                {/* PERBAIKAN: Memperbesar teks dengan text-4xl, menebalkannya, dan mengubahnya menjadi uppercase */}
-                <h2 className="mb-5 max-md:mb-6 text-p1 text-4xl max-md:text-3xl font-bold uppercase tracking-wider">
-                  Gallery Asrama Kami
-                </h2>
+              <div className="mb-8">
+              <h2 className="text-2xl font-bold text-black mb-4">GALLERY ASRAMA KAMI</h2>
+              <div className="grid grid-cols-3 gap-4">
+                {/* Isi gallery */}
               </div>
+            </div>git 
 
               {/* PERBAIKAN: Mengubah teks deskripsi menjadi abu-abu terang (text-s3) */}
               <p className="body-1 mb-10 max-w-md text-s3">

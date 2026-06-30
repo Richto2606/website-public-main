@@ -25,13 +25,13 @@ const About = () => {
                   </div>
                 </div>
 
-                {/* PERBAIKAN: Memperbesar ukuran judul, menebalkannya, dan mengubah warnanya menjadi Kuning Bumble */}
-                <p className="mb-5 max-md:mb-6 uppercase text-p1 text-3xl md:text-4xl font-bold tracking-wider">
+                {/* 🔥 UBAH: Judul menjadi HITAM (text-black) */}
+                <p className="mb-5 max-md:mb-6 uppercase text-black text-3xl md:text-4xl font-bold tracking-wider">
                   {title}
                 </p>
                 
-                {/* PERBAIKAN: Mengubah warna teks deskripsi menjadi abu-abu terang (text-s3) agar kontras */}
-                <p className="mb-11 body-1 text-s3 max-md:mb-8 max-md:body-3">
+                {/* 🔥 UBAH: Deskripsi menjadi HITAM (text-black) */}
+                <p className="mb-11 body-1 text-black max-md:mb-8 max-md:body-3">
                   {description}
                 </p>
                 
@@ -47,9 +47,10 @@ const About = () => {
                           />
                         </div>
                         <div>
-                          {/* PERBAIKAN: Mengubah warna sub-judul item menjadi putih bersih (text-s1) */}
-                          <p className="font-semibold text-s1">{title}</p>
-                          <p className="text-gray-300 text-sm">
+                          {/* 🔥 UBAH: Sub-judul item menjadi HITAM (text-black) */}
+                          <p className="font-semibold text-black">{title}</p>
+                          {/* 🔥 UBAH: Teks deskripsi item menjadi HITAM (text-black) */}
+                          <p className="text-black text-sm">
                             {text}
                           </p>
                         </div>
