@@ -33,6 +33,7 @@ const Header = () => {
     window.location.href = "https://admin.asramaputrakukar.my.id/login";
   };
 
+  // 🔥 SEMUA MENU TETAP HITAM SAAT DIKLIK
   const NavLink = ({ title }) => (
     <LinkScroll
       onClick={() => setIsOpen(false)}
@@ -41,8 +42,7 @@ const Header = () => {
       spy
       smooth
       activeClass="nav-active"
-      // 🔥 UBAH WARNA: text hitam, hover kuning
-      className="base-bold text-black uppercase transition-colors duration-500 cursor-pointer hover:text-[#FCE124] max-lg:my-4 max-lg:h5"
+      className="base-bold text-black uppercase transition-colors duration-500 cursor-pointer hover:text-black active:text-black max-lg:my-4 max-lg:h5"
     >
       {title}
     </LinkScroll>
@@ -59,8 +59,7 @@ const Header = () => {
         }
         setIsOpen(false);  
       }}
-      // 🔥 UBAH WARNA: text hitam, hover kuning
-      className="base-bold text-black uppercase transition-colors duration-500 cursor-pointer hover:text-[#FCE124] max-lg:my-4 max-lg:h5"
+      className="base-bold text-black uppercase transition-colors duration-500 cursor-pointer hover:text-black active:text-black max-lg:my-4 max-lg:h5"
     >
       {title}
     </a>
@@ -70,7 +69,6 @@ const Header = () => {
     <header
       className={clsx(
         "fixed top-0 left-0 z-50 w-full py-10 transition-all duration-500 max-lg:py-4",
-        // 🔥 UBAH WARNA: background KUNING (#FCE124)
         hasScrolled ? "py-2 bg-[#FCE124] shadow-md" : "bg-[#FCE124]"
       )}
     >
@@ -81,7 +79,6 @@ const Header = () => {
 
         <div
           className={clsx(
-            // 🔥 UBAH WARNA: background KUNING (#FCE124)
             "w-full max-lg:fixed max-lg:top-0 max-lg:left-0 max-lg:w-full max-lg:bg-[#FCE124] max-lg:opacity-0",
             isOpen ? "max-lg:opacity-100" : "max-lg:pointer-events-none"
           )}
