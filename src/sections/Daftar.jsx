@@ -24,15 +24,18 @@ const Daftar = () => {
                 </div>
               </div>
 
-              <p className="caption mb-5 max-md:mb-6 text-p1">
+              {/* 🔥 UBAH: text menjadi HITAM */}
+              <p className="caption mb-5 max-md:mb-6 text-black">
                 Panduan Pendaftaran
               </p>
               
-              <h2 className="mb-7 h3 text-s1 max-md:mb-6 max-md:h5">
+              {/* 🔥 UBAH: text menjadi HITAM */}
+              <h2 className="mb-7 h3 text-black max-md:mb-6 max-md:h5">
                 Bagaimana cara saya mendaftar?
               </h2>
               
-              <p className="mb-11 body-1 text-s3 max-md:mb-8 max-md:body-3">
+              {/* 🔥 UBAH: text menjadi HITAM */}
+              <p className="mb-11 body-1 text-black max-md:mb-8 max-md:body-3">
                 Dengan mengikuti tahapan ini, Anda akan resmi menjadi bagian dari Asrama Pelajar & Mahasiswa Kutai Kartanegara di Yogyakarta. Segera daftar dan pastikan ketersediaan tempat Anda!
               </p>
             </div>
@@ -52,18 +55,20 @@ const Daftar = () => {
                     />
                   </div>
 
-                  <h3 className="relative z-2 max-w-36 mx-auto my-0 base-small text-center uppercase text-p1">
+                  {/* 🔥 UBAH: text menjadi HITAM */}
+                  <h3 className="relative z-2 max-w-36 mx-auto my-0 base-small text-center uppercase text-black">
                     {title}
                   </h3>
                   
-                  <h3 className="relative mt-2 max-w-40 mx-auto my-0 small-1 text-center text-s3">
+                  {/* 🔥 UBAH: text menjadi HITAM */}
+                  <h3 className="relative mt-2 max-w-40 mx-auto my-0 small-1 text-center text-black">
                     {description}
                   </h3>
                   
                   <div className="flex-grow"></div>
 
                   {isButton && buttonData && (
-                    <Button icon={buttonData.icon} href={buttonData.href} textFont={'text-white'} containerClassName="mt-auto pt-4">
+                    <Button icon={buttonData.icon} href={buttonData.href} textFont={'text-black'} containerClassName="mt-auto pt-4">
                       {buttonData.text}
                     </Button>
                   )}
