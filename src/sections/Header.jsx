@@ -34,36 +34,36 @@ const Header = () => {
   };
 
   // 🔥 SEMUA MENU TETAP HITAM SAAT DIKLIK
-  const NavLink = ({ title }) => (
-    <LinkScroll
-      onClick={() => setIsOpen(false)}
-      to={title}
-      offset={-100}
-      spy
-      smooth
-      activeClass="nav-active"
-      className="base-bold text-black uppercase transition-colors duration-500 cursor-pointer hover:text-black active:text-black max-lg:my-4 max-lg:h5"
-    >
-      {title}
-    </LinkScroll>
-  );
+const NavLink = ({ title }) => (
+  <LinkScroll
+    onClick={() => setIsOpen(false)}
+    to={title}
+    offset={-100}
+    spy
+    smooth
+    activeClass="nav-active"  // ← Ini pakai CSS
+    className="base-bold text-black uppercase transition-colors duration-500 cursor-pointer hover:text-black active:text-black max-lg:my-4 max-lg:h5"
+  >
+    {title}
+  </LinkScroll>
+);
 
-  const NavLinkExternal = ({ title, href, onClick }) => (
-    <a
-      href={href || "#"}
-      onClick={(e) => {
-        if (onClick) {
-          onClick(e);
-        } else if (!href || href === "#") {
-          e.preventDefault(); 
-        }
-        setIsOpen(false);  
-      }}
-      className="base-bold text-black uppercase transition-colors duration-500 cursor-pointer hover:text-black active:text-black max-lg:my-4 max-lg:h5"
-    >
-      {title}
-    </a>
-  );
+const NavLinkExternal = ({ title, href, onClick }) => (
+  <a
+    href={href || "#"}
+    onClick={(e) => {
+      if (onClick) {
+        onClick(e);
+      } else if (!href || href === "#") {
+        e.preventDefault(); 
+      }
+      setIsOpen(false);  
+    }}
+    className="base-bold text-black uppercase transition-colors duration-500 cursor-pointer hover:text-black active:text-black max-lg:my-4 max-lg:h5"
+  >
+    {title}
+  </a>
+);
 
   return (
     <header

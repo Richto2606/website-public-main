@@ -159,7 +159,7 @@
   /* END of Common */
   /* START of Header */
   .nav-active {
-    @apply text-[#FFD700];
+    @apply text-[#000000];
   }
 
   .nav-li {
