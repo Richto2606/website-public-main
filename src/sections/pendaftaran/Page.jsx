@@ -90,6 +90,8 @@ export default function PendaftaranPage() {
   }, []);
 
   const handleChange = (e) => {
+    // 🔥 DEBUG: CEK PERUBAHAN FIELD
+    console.log('🔄 handleChange:', e.target.name, '=', e.target.value);
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
@@ -124,6 +126,7 @@ export default function PendaftaranPage() {
         return;
       }
       
+      console.log('📎 File selected:', file.name);
       setFormData({
         ...formData,
         file_berkas: file
@@ -149,16 +152,8 @@ export default function PendaftaranPage() {
       return;
     }
 
-    if (!formData.email) {
-      Swal.fire({
-        icon: 'error',
-        title: 'Data Tidak Lengkap',
-        text: 'Email tidak boleh kosong. Silakan login ulang.',
-        confirmButtonColor: '#1F3877'
-      });
-      setLoading(false);
-      return;
-    }
+    // 🔥 DEBUG: CEK STATE SEBELUM DIKIRIM
+    console.log('📦 FORM DATA STATE SEBELUM KIRIM:', formData);
 
     // 🔥 BUAT FormData UNTUK MENGIRIM FILE
     const formDataToSend = new FormData();
@@ -176,6 +171,17 @@ export default function PendaftaranPage() {
     formDataToSend.append('nama_ortu_wali', formData.nama_ortu_wali || '');
     if (formData.file_berkas) {
       formDataToSend.append('file_berkas', formData.file_berkas);
+    }
+
+    // 🔥 DEBUG: TAMPILKAN ISI FormData
+    console.log('📦 FORM DATA YANG DIKIRIM:');
+    for (let pair of formDataToSend.entries()) {
+      // Jika file, tampilkan nama file saja (karena binary)
+      if (pair[0] === 'file_berkas' && pair[1] instanceof File) {
+        console.log(pair[0] + ': ' + pair[1].name + ' (' + pair[1].size + ' bytes)');
+      } else {
+        console.log(pair[0] + ': ' + pair[1]);
+      }
     }
 
     try {
