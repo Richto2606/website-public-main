@@ -20,10 +20,9 @@ const Gallery = () => {
     setVideos([]);
     setPhotos([]);
     try {
-      const response = await axios.get(`${axiosUrl}/galleries?category_name=${category_name}`, {
-        headers: {
-          "X-API-KEY": APIKEY,
-        },
+      // 🔥 PERBAIKI: Panggil API galleries, BUKAN categories
+      const response = await axios.get(`${urlAPIBE}/api/v1/public/galleries?category_name=${category_name}`, {
+        headers: { "X-API-KEY": APIKEY }
       });
 
       const res = response.data;
@@ -74,11 +73,9 @@ const Gallery = () => {
           <div className="flex items-center">
             <div className="relative mr-6 flex-540 max-xl:flex-280 max-lg:flex256 max-md:flex-100">
               <div className="mb-8">
-                {/* 🔥 UBAH: Judul menjadi HITAM (text-black) */}
                 <h2 className="text-2xl font-bold text-black mb-4">GALLERY ASRAMA KAMI</h2>
               </div>
 
-              {/* 🔥 UBAH: Deskripsi menjadi HITAM (text-black) */}
               <p className="body-1 mb-10 max-w-md text-black">
                 Berikut kumpulan dokumentasi dari aktivitas kami selama di asrama dan juga beberapa foto dari fasilitas yang ada di asrama.
               </p>
@@ -105,7 +102,6 @@ const Gallery = () => {
           {photos.length > 0 && (
             <div className="my-10 w-full">
               <div className="flex items-center justify-between mb-8">
-                {/* 🔥 UBAH: Judul kategori menjadi HITAM (text-black) */}
                 <h3 className="h4 text-black">Photos - {selectedCategory}</h3>
                 <div className="h-0.5 flex-1 bg-s3 ml-6 opacity-20" />
               </div>
@@ -139,7 +135,6 @@ const Gallery = () => {
           {videos.length > 0 && (
             <div className="my-20 w-full">
               <div className="flex items-center justify-between mb-8">
-                {/* 🔥 UBAH: Judul kategori menjadi HITAM (text-black) */}
                 <h3 className="h4 text-black">Videos - {selectedCategory}</h3>
                 <div className="h-0.5 flex-1 bg-s3 ml-6 opacity-20" />
               </div>
@@ -157,7 +152,6 @@ const Gallery = () => {
                         />
                       )}
                     </div>
-                    {/* 🔥 UBAH: Judul video menjadi HITAM (text-black) */}
                     <h4 className="mt-4 h6 text-black transition-colors group-hover:text-p1">{video.title}</h4>
                   </div>
                 ))}
@@ -190,9 +184,7 @@ const Gallery = () => {
                 className="max-h-[80vh] w-full object-contain"
               />
               <div className="bg-s1 p-6 text-center border-t border-s3">
-                {/* 🔥 UBAH: Judul gambar menjadi HITAM (text-black) */}
                 <h4 className="h5 text-black font-bold mb-1">{selectedImage.title}</h4>
-                {/* 🔥 UBAH: Kategori menjadi HITAM (text-black) */}
                 <p className="body-3 text-black font-semibold">{selectedCategory}</p>
               </div>
             </div>

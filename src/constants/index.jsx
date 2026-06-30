@@ -289,7 +289,7 @@ const urlAPIFE = "https://asramaputrakukar.my.id";
 // INI KUNCI UTAMANYA: Arahkan ke gerbang API cPanel Anda
 export const urlAPIBE = "https://api.asramaputrakukar.my.id"; 
 
-export const APIKEY = "881182541952993820593968";
+export const APIKEY = "881182541952993820593968";;
 
 // Gunakan path relatif agar aman saat di-deploy
 export const daftarAsrama = "/pendaftaran";
