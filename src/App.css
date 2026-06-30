@@ -11,11 +11,14 @@
   will-change: filter;
   transition: filter 300ms;
 }
+
+/* 🔥 UBAH WARNA HOVER LOGO */
 .logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+  filter: drop-shadow(0 0 2em #FCE124);
 }
+
 .logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+  filter: drop-shadow(0 0 2em #FFD700);
 }
 
 @keyframes logo-spin {
@@ -37,6 +40,7 @@
   padding: 2em;
 }
 
+/* 🔥 UBAH WARNA TEKS */
 .read-the-docs {
-  color: #888;
+  color: #666;
 }

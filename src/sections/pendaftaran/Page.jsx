@@ -23,9 +23,6 @@ export default function PendaftaranPage() {
   const [loading, setLoading] = useState(false);
   const [userLoaded, setUserLoaded] = useState(false);
 
-  // ============================================================
-  // 🔥 USEFFECT: BACA TOKEN DARI URL & LOCALSTORAGE
-  // ============================================================
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const tokenFromUrl = urlParams.get('token');
@@ -50,7 +47,7 @@ export default function PendaftaranPage() {
         icon: 'warning',
         title: 'Akses Ditolak',
         text: 'Anda harus login terlebih dahulu untuk mendaftar.',
-        confirmButtonColor: '#1F3877'
+        confirmButtonColor: '#FCE124'
       });
       window.location.href = 'https://admin.asramaputrakukar.my.id/login';
       return;
@@ -90,7 +87,6 @@ export default function PendaftaranPage() {
   }, []);
 
   const handleChange = (e) => {
-    // 🔥 DEBUG: CEK PERUBAHAN FIELD
     console.log('🔄 handleChange:', e.target.name, '=', e.target.value);
     setFormData({
       ...formData,
@@ -101,26 +97,24 @@ export default function PendaftaranPage() {
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      // Validasi ukuran file (max 2MB)
       if (file.size > 2 * 1024 * 1024) {
         Swal.fire({
           icon: 'error',
           title: 'File Terlalu Besar',
           text: 'Ukuran file maksimal 2MB.',
-          confirmButtonColor: '#1F3877'
+          confirmButtonColor: '#FCE124'
         });
         e.target.value = '';
         return;
       }
       
-      // Validasi tipe file
       const allowedTypes = ['application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'image/jpeg', 'image/png', 'application/pdf'];
       if (!allowedTypes.includes(file.type)) {
         Swal.fire({
           icon: 'error',
           title: 'Format File Tidak Didukung',
           text: 'Hanya file DOC, DOCX, JPG, JPEG, PNG, PDF yang diperbolehkan.',
-          confirmButtonColor: '#1F3877'
+          confirmButtonColor: '#FCE124'
         });
         e.target.value = '';
         return;
@@ -146,16 +140,14 @@ export default function PendaftaranPage() {
         icon: 'warning',
         title: 'Akses Ditolak',
         text: 'Anda harus login terlebih dahulu untuk mendaftar.',
-        confirmButtonColor: '#1F3877'
+        confirmButtonColor: '#FCE124'
       });
       setLoading(false);
       return;
     }
 
-    // 🔥 DEBUG: CEK STATE SEBELUM DIKIRIM
     console.log('📦 FORM DATA STATE SEBELUM KIRIM:', formData);
 
-    // 🔥 BUAT FormData UNTUK MENGIRIM FILE
     const formDataToSend = new FormData();
     formDataToSend.append('nama_lengkap', formData.nama_lengkap || '');
     formDataToSend.append('nim', formData.nim || '');
@@ -173,10 +165,8 @@ export default function PendaftaranPage() {
       formDataToSend.append('file_berkas', formData.file_berkas);
     }
 
-    // 🔥 DEBUG: TAMPILKAN ISI FormData
     console.log('📦 FORM DATA YANG DIKIRIM:');
     for (let pair of formDataToSend.entries()) {
-      // Jika file, tampilkan nama file saja (karena binary)
       if (pair[0] === 'file_berkas' && pair[1] instanceof File) {
         console.log(pair[0] + ': ' + pair[1].name + ' (' + pair[1].size + ' bytes)');
       } else {
@@ -190,7 +180,6 @@ export default function PendaftaranPage() {
         headers: {
           'Authorization': `Bearer ${token}`,
           'x-api-key': '881182541952993820593968'
-          // 🔥 JANGAN PAKAI 'Content-Type'! Biarkan browser yang set
         },
         body: formDataToSend
       });
@@ -223,7 +212,6 @@ export default function PendaftaranPage() {
           file_berkas: null
         });
 
-        // Reset input file
         const fileInput = document.getElementById('file_berkas');
         if (fileInput) fileInput.value = '';
 
@@ -236,7 +224,7 @@ export default function PendaftaranPage() {
           icon: 'error',
           title: 'Pendaftaran Gagal',
           text: result.message || 'Pastikan data yang Anda masukkan sudah benar.',
-          confirmButtonColor: '#1F3877'
+          confirmButtonColor: '#FCE124'
         });
       }
     } catch (error) {
@@ -245,27 +233,29 @@ export default function PendaftaranPage() {
         icon: 'error',
         title: 'Koneksi Terputus',
         text: 'Gagal terhubung ke server. Silakan coba beberapa saat lagi.',
-        confirmButtonColor: '#1F3877'
+        confirmButtonColor: '#FCE124'
       });
     } finally {
       setLoading(false);
     }
   };
 
-  const inputStyle = "w-full p-3 border border-slate-200 rounded-xl bg-slate-50 text-black placeholder-gray-400 focus:outline-none focus:border-p1 focus:ring-1 focus:ring-p1 transition-all duration-300";
+  // 🔥 UBAH WARNA INPUT STYLE: border fokus menjadi KUNING
+  const inputStyle = "w-full p-3 border border-slate-200 rounded-xl bg-slate-50 text-black placeholder-gray-400 focus:outline-none focus:border-[#FCE124] focus:ring-1 focus:ring-[#FCE124] transition-all duration-300";
 
   return (
-    <div className="w-full min-h-screen bg-slate-50 py-12 px-4">
+    <div className="w-full min-h-screen bg-white py-12 px-4">
       <div className="max-w-2xl mx-auto p-8 sm:p-10 bg-white shadow-xl rounded-2xl text-black border border-slate-100 relative overflow-hidden">
         
-        <div className="absolute top-0 left-0 right-0 h-1.5 bg-p1" />
+        {/* 🔥 UBAH WARNA GARIS ATAS: KUNING */}
+        <div className="absolute top-0 left-0 right-0 h-1.5 bg-[#FCE124]" />
 
-        <h2 className="text-3xl font-extrabold text-center mb-2 tracking-tight text-slate-800">Form Pendaftaran Anggota Baru</h2>
-        <p className="text-center text-gray-500 font-medium mb-8">Sistem Informasi Asrama Kutai Kartanegara Yogyakarta</p>
+        <h2 className="text-3xl font-extrabold text-center mb-2 tracking-tight text-black">Form Pendaftaran Anggota Baru</h2>
+        <p className="text-center text-gray-600 font-medium mb-8">Sistem Informasi Asrama Kutai Kartanegara Yogyakarta</p>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-5">
           <div>
-            <label className="block font-semibold text-slate-700 mb-1.5 text-sm">Nama Lengkap</label>
+            <label className="block font-semibold text-black mb-1.5 text-sm">Nama Lengkap</label>
             <input 
               type="text" 
               name="nama_lengkap" 
@@ -279,7 +269,7 @@ export default function PendaftaranPage() {
 
           <div className="flex flex-col sm:flex-row gap-5">
             <div className="flex-1">
-              <label className="block font-semibold text-slate-700 mb-1.5 text-sm">NIM</label>
+              <label className="block font-semibold text-black mb-1.5 text-sm">NIM</label>
               <input 
                 type="text" 
                 name="nim" 
@@ -291,7 +281,7 @@ export default function PendaftaranPage() {
               />
             </div>
             <div className="flex-1">
-              <label className="block font-semibold text-slate-700 mb-1.5 text-sm">Jenis Kelamin</label>
+              <label className="block font-semibold text-black mb-1.5 text-sm">Jenis Kelamin</label>
               <select 
                 name="jenis_kelamin" 
                 value={formData.jenis_kelamin} 
@@ -305,7 +295,7 @@ export default function PendaftaranPage() {
           </div>
 
           <div>
-            <label className="block font-semibold text-slate-700 mb-1.5 text-sm">Universitas</label>
+            <label className="block font-semibold text-black mb-1.5 text-sm">Universitas</label>
             <input 
               type="text" 
               name="universitas" 
@@ -318,7 +308,7 @@ export default function PendaftaranPage() {
           </div>
 
           <div>
-            <label className="block font-semibold text-slate-700 mb-1.5 text-sm">Program Studi</label>
+            <label className="block font-semibold text-black mb-1.5 text-sm">Program Studi</label>
             <input 
               type="text" 
               name="program_studi" 
@@ -331,7 +321,7 @@ export default function PendaftaranPage() {
           </div>
 
           <div>
-            <label className="block font-semibold text-slate-700 mb-1.5 text-sm">No. HP / WhatsApp</label>
+            <label className="block font-semibold text-black mb-1.5 text-sm">No. HP / WhatsApp</label>
             <input 
               type="text" 
               name="no_hp" 
@@ -344,13 +334,13 @@ export default function PendaftaranPage() {
           </div>
 
           <div>
-            <label className="block font-semibold text-slate-700 mb-1.5 text-sm">Email</label>
+            <label className="block font-semibold text-black mb-1.5 text-sm">Email</label>
             <input 
               type="email" 
               name="email" 
               value={formData.email} 
               onChange={handleChange} 
-              className={`w-full p-3 border border-slate-200 rounded-xl transition-all duration-300 ${userLoaded ? 'bg-slate-100 text-gray-500 cursor-not-allowed border-dashed' : 'bg-yellow-50 focus:outline-none focus:border-p1'}`}
+              className={`w-full p-3 border border-slate-200 rounded-xl transition-all duration-300 ${userLoaded ? 'bg-slate-100 text-gray-500 cursor-not-allowed border-dashed' : 'bg-yellow-50 focus:outline-none focus:border-[#FCE124]'}`}
               placeholder={userLoaded ? 'Email dari akun Anda' : 'Memuat email...'}
               readOnly={userLoaded}
               required 
@@ -361,7 +351,7 @@ export default function PendaftaranPage() {
           </div>
 
           <div>
-            <label className="block font-semibold text-slate-700 mb-1.5 text-sm">Alamat Asal</label>
+            <label className="block font-semibold text-black mb-1.5 text-sm">Alamat Asal</label>
             <textarea 
               name="alamat_asal" 
               value={formData.alamat_asal} 
@@ -372,9 +362,8 @@ export default function PendaftaranPage() {
             ></textarea>
           </div>
 
-          {/* 🔥 FIELD BARU: Nama Wali */}
           <div>
-            <label className="block font-semibold text-slate-700 mb-1.5 text-sm">Nama Wali</label>
+            <label className="block font-semibold text-black mb-1.5 text-sm">Nama Wali</label>
             <input 
               type="text" 
               name="nama_wali" 
@@ -385,9 +374,8 @@ export default function PendaftaranPage() {
             />
           </div>
 
-          {/* 🔥 FIELD BARU: Semester */}
           <div>
-            <label className="block font-semibold text-slate-700 mb-1.5 text-sm">Semester</label>
+            <label className="block font-semibold text-black mb-1.5 text-sm">Semester</label>
             <input 
               type="number" 
               name="semester" 
@@ -400,9 +388,8 @@ export default function PendaftaranPage() {
             />
           </div>
 
-          {/* 🔥 FIELD BARU: No Orang Tua/Wali */}
           <div>
-            <label className="block font-semibold text-slate-700 mb-1.5 text-sm">No. Telepon Orang Tua/Wali</label>
+            <label className="block font-semibold text-black mb-1.5 text-sm">No. Telepon Orang Tua/Wali</label>
             <input 
               type="text" 
               name="no_ortu_wali" 
@@ -413,9 +400,8 @@ export default function PendaftaranPage() {
             />
           </div>
 
-          {/* 🔥 FIELD BARU: Nama Orang Tua/Wali (Ayah) */}
           <div>
-            <label className="block font-semibold text-slate-700 mb-1.5 text-sm">Nama Orang Tua/Wali (Ayah)</label>
+            <label className="block font-semibold text-black mb-1.5 text-sm">Nama Orang Tua/Wali (Ayah)</label>
             <input 
               type="text" 
               name="nama_ortu_wali" 
@@ -426,9 +412,8 @@ export default function PendaftaranPage() {
             />
           </div>
 
-          {/* 🔥 FIELD BARU: Upload Berkas */}
           <div>
-            <label className="block font-semibold text-slate-700 mb-1.5 text-sm">Upload Berkas</label>
+            <label className="block font-semibold text-black mb-1.5 text-sm">Upload Berkas</label>
             <input 
               type="file" 
               id="file_berkas"
@@ -445,10 +430,15 @@ export default function PendaftaranPage() {
             )}
           </div>
 
+          {/* 🔥 UBAH WARNA TOMBOL: KUNING DENGAN TEKS HITAM */}
           <button 
             type="submit" 
             disabled={loading} 
-            className={`w-full p-4 text-white font-bold rounded-xl shadow-md transition-all duration-300 tracking-wide mt-2 ${loading ? 'bg-slate-300 cursor-not-allowed shadow-none' : 'bg-blue-600 hover:bg-blue-700 hover:shadow-lg active:scale-[0.99]'}`}
+            className={`w-full p-4 font-bold rounded-xl shadow-md transition-all duration-300 tracking-wide mt-2 ${
+              loading 
+                ? 'bg-gray-300 cursor-not-allowed shadow-none text-gray-500' 
+                : 'bg-[#FCE124] hover:bg-[#FFD700] text-black hover:shadow-lg active:scale-[0.99]'
+            }`}
           >
             {loading ? 'Mengirim Pendaftaran...' : 'Kirim Pendaftaran'}
           </button>

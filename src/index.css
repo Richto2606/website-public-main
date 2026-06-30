@@ -6,15 +6,16 @@
 
 @layer base {
   html {
-    @apply bg-s1;
+    /* 🔥 UBAH WARNA BACKGROUND: PUTIH */
+    @apply bg-white;
   }
 
   body {
-    @apply font-poppins text-[16px] tracking-[-0.03em]  text-p5;
+    @apply font-poppins text-[16px] tracking-[-0.03em] text-black;
   }
 
   a {
-    @apply no-underline;
+    @apply no-underline text-black hover:text-[#FCE124] transition-colors duration-300;
   }
 
   img {
@@ -103,36 +104,37 @@
     background: linear-gradient(rgba(196, 203, 245, 0.5), transparent);
   }
 
+  /* 🔥 UBAH GRADIENT WARNA */
   .g2 {
-    background: linear-gradient(#3062a3, #19549f);
+    background: linear-gradient(#FCE124, #FFD700);
   }
 
   .g3 {
-    background: linear-gradient(#3c52d9, #0c1838);
+    background: linear-gradient(#FCE124, #D4A800);
   }
 
   .g4 {
-    background: linear-gradient(#253575, #162561);
+    background: linear-gradient(#FFD700, #C49A00);
   }
 
   .g5 {
-    background: linear-gradient(#334679, #162561);
+    background: linear-gradient(#E6B800, #C49A00);
   }
 
   .g6 {
-    background: linear-gradient(#334679, #0c1838);
+    background: linear-gradient(#FCE124, #D4A800);
   }
 
   .g7 {
-    background: linear-gradient(#1b275a, #0e1434);
+    background: linear-gradient(#E6B800, #B38F00);
   }
 
   .g8 {
-    background: linear-gradient(to right, transparent, #2ef2ff, transparent);
+    background: linear-gradient(to right, transparent, #FCE124, transparent);
   }
 
   .g9 {
-    background: linear-gradient(#080d27, transparent);
+    background: linear-gradient(#FFD700, transparent);
   }
 
   /* END of Gradients */
@@ -142,7 +144,7 @@
   }
 
   .caption {
-    @apply small-2 mb-5 uppercase text-s1;
+    @apply small-2 mb-5 uppercase text-black;
   }
 
   .scroll-hide::-webkit-scrollbar {
@@ -157,7 +159,7 @@
   /* END of Common */
   /* START of Header */
   .nav-active {
-    @apply text-[#C8EA80];
+    @apply text-[#FFD700];
   }
 
   .nav-li {
@@ -169,11 +171,11 @@
   }
 
   .dot {
-    @apply size-1.5 rounded-full bg-[#3C52D9] max-lg:hidden;
+    @apply size-1.5 rounded-full bg-black max-lg:hidden;
   }
 
   .sidebar-before {
-    @apply max-lg:before:absolute max-lg:before:-right-64 max-lg:before:top-2/5 max-lg:before:h-[440px] max-lg:before:w-[252px] max-lg:before:bg-[#1959AD] max-lg:before:blur-[200px] max-lg:before:content-[''];
+    @apply max-lg:before:absolute max-lg:before:-right-64 max-lg:before:top-2/5 max-lg:before:h-[440px] max-lg:before:w-[252px] max-lg:before:bg-[#FCE124] max-lg:before:blur-[200px] max-lg:before:content-[''];
   }
 
   /* END of Header */
@@ -209,7 +211,7 @@
   }
 
   .pricing-head_btn {
-    @apply base-bold relative z-2 h-16 flex-1 uppercase text-p5 transition-colors duration-500 hover:text-p4;
+    @apply base-bold relative z-2 h-16 flex-1 uppercase text-black transition-colors duration-500 hover:text-[#FCE124];
   }
 
   .pricing-head_btn_before {
@@ -229,7 +231,7 @@
   }
 
   .pricing-plan_odd {
-    @apply odd:border-s3 odd:bg-s1 lg:odd:mt-12;
+    @apply odd:border-s3 odd:bg-white lg:odd:mt-12;
   }
 
   .pricing-plan_even {
@@ -239,15 +241,15 @@
   /* END of Pricing */
   /* START of FAQ */
   .faq-line_after {
-    @apply after:absolute after:-top-1.5 after:left-[calc(50%-5px)] after:z-4 after:size-2.5 after:rounded-half after:border-2 after:border-s2 after:bg-s1 after:content-[''];
+    @apply after:absolute after:-top-1.5 after:left-[calc(50%-5px)] after:z-4 after:size-2.5 after:rounded-half after:border-2 after:border-black after:bg-white after:content-[''];
   }
 
   .faq-glow_before {
-    @apply before:absolute before:left-[calc(50%-160px)] before:top-[-160px] before:size-[320px] before:bg-s4/25 before:mix-blend-soft-light before:blur-[200px] before:content-[''];
+    @apply before:absolute before:left-[calc(50%-160px)] before:top-[-160px] before:size-[320px] before:bg-[#FCE124]/25 before:mix-blend-soft-light before:blur-[200px] before:content-[''];
   }
 
   .faq-icon {
-    @apply before:absolute before:h-0.5 before:w-3 before:bg-p3 before:content-[''] after:absolute after:h-0.5 after:w-3 after:rotate-90 after:bg-p3 after:transition-all after:duration-500 after:content-[''];
+    @apply before:absolute before:h-0.5 before:w-3 before:bg-black before:content-[''] after:absolute after:h-0.5 after:w-3 after:rotate-90 after:bg-black after:transition-all after:duration-500 after:content-[''];
   }
 
   /* END of FAQ */
@@ -257,7 +259,7 @@
   }
 
   .testimonials_inner-before {
-    @apply before:pointer-events-none before:absolute before:-top-28 before:left-[calc(50%-1px)] before:h-[calc(100%+218px)] before:w-0.5 before:bg-s2 before:content-[''] before:max-lg:top-0 before:max-lg:h-full before:max-md:hidden;
+    @apply before:pointer-events-none before:absolute before:-top-28 before:left-[calc(50%-1px)] before:h-[calc(100%+218px)] before:w-0.5 before:bg-black before:content-[''] before:max-lg:top-0 before:max-lg:h-full before:max-md:hidden;
   }
 
   .testimonials_inner-after {
@@ -265,7 +267,7 @@
   }
 
   .testimonials_group-after {
-    @apply after:pointer-events-none after:absolute after:-bottom-[212px] after:left-[calc(50%-5px)] after:z-2 after:size-2.5 after:rounded-half after:border-2 after:border-s5 after:bg-s1 after:content-[''] max-lg:after:-bottom-[102px] max-md:after:hidden;
+    @apply after:pointer-events-none after:absolute after:-bottom-[212px] after:left-[calc(50%-5px)] after:z-2 after:size-2.5 after:rounded-half after:border-2 after:border-s5 after:bg-white after:content-[''] max-lg:after:-bottom-[102px] max-md:after:hidden;
   }
 
   /* END of Testimonials */
@@ -275,7 +277,7 @@
   }
 
   .download_tech-link_last-after {
-    @apply last:after:pointer-events-none last:after:absolute last:after:left-[223px] last:after:top-[calc(50%-5px)] last:after:z-2 last:after:size-2.5 last:after:rounded-half last:after:border-2 last:after:border-s5 last:after:bg-s1 last:after:content-[''] last:after:max-xl:left-[187px] last:after:max-lg:left-[163px] last:after:max-md:hidden;
+    @apply last:after:pointer-events-none last:after:absolute last:after:left-[223px] last:after:top-[calc(50%-5px)] last:after:z-2 last:after:size-2.5 last:after:rounded-half last:after:border-2 last:after:border-s5 last:after:bg-white last:after:content-[''] last:after:max-xl:left-[187px] last:after:max-lg:left-[163px] last:after:max-md:hidden;
   }
 
   .download_tech-icon {
@@ -287,7 +289,7 @@
   }
 
   .download_tech-link:hover .download_tech-icon svg path {
-    @apply fill-p1;
+    @apply fill-[#FCE124];
   }
 
   .download_preview-before {
@@ -305,11 +307,11 @@
   /*  END of Download*/
   /*  START of Footer */
   .legal-after {
-    @apply after:absolute after:-right-5 after:top-[calc(50%-1px)] after:h-0.5 after:w-0.5 after:rounded-half after:bg-s3 after:content-[''];
+    @apply after:absolute after:-right-5 after:top-[calc(50%-1px)] after:h-0.5 after:w-0.5 after:rounded-half after:bg-black after:content-[''];
   }
 
   .social-icon {
-    @apply flex size-10 items-center justify-center rounded-full border-2 border-s4/25 bg-s1/5 transition-all duration-500 hover:border-s4;
+    @apply flex size-10 items-center justify-center rounded-full border-2 border-black/25 bg-white/5 transition-all duration-500 hover:border-[#FCE124] hover:bg-[#FCE124]/10;
   }
 
   /*  END of Footer*/

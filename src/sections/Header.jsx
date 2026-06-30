@@ -6,8 +6,6 @@ import { adminAsrama } from "../constants";
 const Header = () => {
   const [hasScrolled, setHasScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  
-  // 1. Tambahkan state untuk status login
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
@@ -17,7 +15,6 @@ const Header = () => {
 
     window.addEventListener("scroll", handleScroll);
 
-    // 2. Cek token login saat komponen dimuat
     const token = localStorage.getItem("token");
     if (token) {
       setIsLoggedIn(true);
@@ -28,14 +25,11 @@ const Header = () => {
     };
   }, []);
 
-  // 3. Buat fungsi untuk Logout
   const handleLogout = (e) => {
-    e.preventDefault(); // Mencegah reload halaman standar
-    localStorage.removeItem("token"); // Hapus token dari browser
-    setIsLoggedIn(false); // Ubah status
-    setIsOpen(false); // Tutup menu jika di HP
-
-    // PERBAIKAN: Arahkan langsung ke halaman login
+    e.preventDefault();
+    localStorage.removeItem("token");
+    setIsLoggedIn(false);
+    setIsOpen(false);
     window.location.href = "https://admin.asramaputrakukar.my.id/login";
   };
 
@@ -47,14 +41,13 @@ const Header = () => {
       spy
       smooth
       activeClass="nav-active"
-      // Mengubah text menjadi hitam pekat (text-p2) & hover menjadi kuning aksen (hover:text-p1)
-      className="base-bold text-p2 uppercase transition-colors duration-500 cursor-pointer hover:text-p1 max-lg:my-4 max-lg:h5"
+      // 🔥 UBAH WARNA: text hitam, hover kuning
+      className="base-bold text-black uppercase transition-colors duration-500 cursor-pointer hover:text-[#FCE124] max-lg:my-4 max-lg:h5"
     >
       {title}
     </LinkScroll>
   );
 
-  // 4. Modifikasi dikembalikan agar class CSS sama persis dengan NavLink
   const NavLinkExternal = ({ title, href, onClick }) => (
     <a
       href={href || "#"}
@@ -66,8 +59,8 @@ const Header = () => {
         }
         setIsOpen(false);  
       }}
-      // Mengubah text menjadi hitam pekat (text-p2) & hover menjadi kuning aksen (hover:text-p1)
-      className="base-bold text-p2 uppercase transition-colors duration-500 cursor-pointer hover:text-p1 max-lg:my-4 max-lg:h5"
+      // 🔥 UBAH WARNA: text hitam, hover kuning
+      className="base-bold text-black uppercase transition-colors duration-500 cursor-pointer hover:text-[#FCE124] max-lg:my-4 max-lg:h5"
     >
       {title}
     </a>
@@ -77,8 +70,8 @@ const Header = () => {
     <header
       className={clsx(
         "fixed top-0 left-0 z-50 w-full py-10 transition-all duration-500 max-lg:py-4",
-        // Mengubah header yg di-scroll menjadi putih (bg-s1) dengan shadow
-        hasScrolled && "py-2 bg-s1 shadow-md backdrop-blur-[8px]"
+        // 🔥 UBAH WARNA: background KUNING (#FCE124)
+        hasScrolled ? "py-2 bg-[#FCE124] shadow-md" : "bg-[#FCE124]"
       )}
     >
       <div className="container flex h-14 items-center max-lg:px-5">
@@ -88,8 +81,8 @@ const Header = () => {
 
         <div
           className={clsx(
-            // Mengubah background menu HP menjadi putih (max-lg:bg-s1)
-            "w-full max-lg:fixed max-lg:top-0 max-lg:left-0 max-lg:w-full max-lg:bg-s1 max-lg:opacity-0",
+            // 🔥 UBAH WARNA: background KUNING (#FCE124)
+            "w-full max-lg:fixed max-lg:top-0 max-lg:left-0 max-lg:w-full max-lg:bg-[#FCE124] max-lg:opacity-0",
             isOpen ? "max-lg:opacity-100" : "max-lg:pointer-events-none"
           )}
         >
@@ -125,7 +118,6 @@ const Header = () => {
                   <NavLink title="bantuan & kontak" />
                   <div className="dot" />
 
-                  {/* 5. PERBAIKAN: Mengembalikan struktur kondisi Logika Tampil/Sembunyi dengan benar */}
                   {isLoggedIn ? (
                     <NavLinkExternal 
                       title="logout" 
@@ -161,7 +153,7 @@ const Header = () => {
         </div>
 
         <button
-          className="lg:hidden z-2 size-10 border-2 border-p1/25 rounded-full flex justify-center items-center"
+          className="lg:hidden z-2 size-10 border-2 border-black/25 rounded-full flex justify-center items-center"
           onClick={() => setIsOpen((prevState) => !prevState)}
         >
           <img
