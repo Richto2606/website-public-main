@@ -270,7 +270,7 @@ export const links = [
   },
   {
     id: "1",
-    title: "Kegiatan & Aktifitas",
+    title: "Kegiatan",
     icon: <img src="/images/icons/gallery/kegiatan.svg"/>,
     url: "#",
   },
