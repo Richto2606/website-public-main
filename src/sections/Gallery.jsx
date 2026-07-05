@@ -66,72 +66,51 @@ const Gallery = () => {
   };
 
   return (
-    <section>
-      <Element name="gallery">
-        {/* 🔥 CONTAINER SAMA SEPERTI PANDUAN PENDAFTARAN */}
-        <div className="container" style={{ backgroundColor: '#FCE124', boxShadow: 'none' }}>
-          <div 
-            className="relative flex md:flex-wrap flex-nowrap border-2 border-s3 rounded-7xl md:overflow-hidden max-md:flex-col feature-after md:g7 max-md:border-none max-md:rounded-none max-md:gap-3"
-            style={{ backgroundColor: '#FCE124', boxShadow: 'none' }}
-          >
-            {/* SISI KIRI - JUDUL DAN DESKRIPSI */}
-            <div
-              className="relative z-2 md:px-10 px-5 md:pb-10 pb-5 max-md:g7 max-md:border-2 max-md:border-s3 max-md:rounded-3xl flex-1"
-              style={{ backgroundColor: '#FCE124', boxShadow: 'none' }}
-            >
-              <div className="w-full flex justify-start items-start">
-                <div className="-ml-3 mb-12 flex items-center justify-center flex-col">
-                  <div className="w-0.5 h-16 bg-s3" />
-                  <img
-                    src="/images/gallery-icon.png"
-                    className="size-20 object-contain"
-                    alt="gallery"
-                  />
-                </div>
+    <section className="mt-2">
+      <Element 
+        name="gallery" 
+        className="relative pb-32 pt-24 max-lg:pb-24 max-md:py-16"
+        style={{ 
+          backgroundColor: '#FCE124',
+          boxShadow: 'none'
+        }}
+      >
+        <div className="container" style={{ backgroundColor: '#FCE124' }}>
+          <div className="flex items-center">
+            <div className="relative mr-6 flex-540 max-xl:flex-280 max-lg:flex256 max-md:flex-100">
+              <div className="mb-8">
+                <h2 className="text-2xl font-bold text-black mb-4">GALLERY ASRAMA KAMI</h2>
               </div>
 
-              <p className="caption mb-5 max-md:mb-6 text-black">
-                Gallery Asrama Kami
-              </p>
-              
-              <h2 className="mb-7 h3 text-black max-md:mb-6 max-md:h5">
-                GALLERY ASRAMA KAMI
-              </h2>
-              
-              <p className="mb-11 body-1 text-black max-md:mb-8 max-md:body-3">
+              <p className="body-1 mb-10 max-w-md text-black">
                 Berikut kumpulan dokumentasi dari aktivitas kami selama di asrama dan juga beberapa foto dari fasilitas yang ada di asrama.
               </p>
+
+              <ul className="flex flex-wrap items-center gap-[80px]">
+                {links.map(({ id, title, url, icon }) => (
+                  <li key={id} className="download_tech-link ">
+                    <button
+                      onClick={() => fetchImages(title)}
+                      className="size-22 download_tech-icon_before relative flex items-center justify-center rounded-half border-2 border-s3 bg-s1 transition-borderColor duration-500"
+                      style={{ 
+                        boxShadow: 'none',
+                        backgroundColor: '#FCE124'
+                      }}
+                    >
+                      <span className="absolute -top-2 rotate-90">
+                        <Marker fill={"#C4CBF5"} />
+                      </span>
+                      <img src={"/images/lines.svg"} alt="lines" className="absolute size-13/20 object-contain" />
+                      <span className="download_tech-icon">{icon}</span>
+                    </button>
+                  </li>
+                ))}
+              </ul>
             </div>
-
-            {/* SISI KANAN - LIST ICON KATEGORI */}
-            <ul className="relative flex justify-around flex-grow px-[5%] border-2 border-s3 rounded-7xl max-md:hidden">
-              <div className="absolute bg-s3/20 top-[38%] left-0 right-0 w-full h-[1px] z-10" />
-
-              {links.map(({ id, title, url, icon }) => (
-                <li key={id} className="relative pt-16 px-4 pb-14 flex flex-col h-full">
-                  <div className="absolute top-8 bottom-0 left-1/2 bg-s3/20 w-[1px] h-full z-10" />
-
-                  <button
-                    onClick={() => fetchImages(title)}
-                    className="flex items-center justify-center mx-auto mb-3 border-2 border-s2 rounded-full hover:border-s4 transition-all duration-500 size-20"
-                    style={{ boxShadow: 'none', backgroundColor: '#FFFFFF' }}
-                  >
-                    <span className="download_tech-icon">{icon}</span>
-                  </button>
-
-                  <h3 className="relative z-2 max-w-36 mx-auto my-0 base-small text-center uppercase text-black">
-                    {title}
-                  </h3>
-                </li>
-              ))}
-            </ul>
           </div>
-        </div>
 
-        {/* 🔥 BAGIAN PHOTOS - DENGAN CONTAINER YANG SAMA */}
-        {photos.length > 0 && (
-          <div className="container" style={{ backgroundColor: '#FCE124', boxShadow: 'none' }}>
-            <div className="my-10 w-full py-8">
+          {photos.length > 0 && (
+            <div className="my-10 w-full">
               <div className="flex items-center justify-between mb-8">
                 <h3 className="h4 text-black">Photos - {selectedCategory}</h3>
                 <div className="h-0.5 flex-1 bg-black/20 ml-6" />
@@ -140,8 +119,11 @@ const Gallery = () => {
                 {photos.map((photo) => (
                   <div key={photo.id} className="px-3">
                     <div 
-                      className="group relative aspect-square cursor-pointer overflow-hidden rounded-2xl border-2 border-s3 bg-s1 transition-all duration-500 hover:border-p1"
-                      style={{ boxShadow: 'none', backgroundColor: '#FFFFFF' }}
+                      className="group relative aspect-square cursor-pointer overflow-hidden rounded-2xl border-2 border-[#FCE124] transition-all duration-500 hover:border-p1"
+                      style={{ 
+                        boxShadow: 'none',
+                        backgroundColor: '#FCE124'
+                      }}
                       onClick={() => setSelectedImage(photo)}
                     >
                       {photo.file && (
@@ -154,7 +136,7 @@ const Gallery = () => {
                       <div className="absolute inset-0 flex items-end bg-gradient-to-t from-black/80 via-black/20 to-transparent p-6 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
                         <div className="transform translate-y-4 transition-transform duration-500 group-hover:translate-y-0">
                           <p className="h6 text-p1 mb-1">{photo.title}</p>
-                          <p className="body-3 text-s1">Klik untuk memperbesar</p>
+                          <p className="body-3 text-white">Klik untuk memperbesar</p>
                         </div>
                       </div>
                     </div>
@@ -162,13 +144,10 @@ const Gallery = () => {
                 ))}
               </Slider>
             </div>
-          </div>
-        )}
+          )}
 
-        {/* 🔥 BAGIAN VIDEOS - DENGAN CONTAINER YANG SAMA */}
-        {videos.length > 0 && (
-          <div className="container" style={{ backgroundColor: '#FCE124', boxShadow: 'none' }}>
-            <div className="my-20 w-full py-8">
+          {videos.length > 0 && (
+            <div className="my-20 w-full">
               <div className="flex items-center justify-between mb-8">
                 <h3 className="h4 text-black">Videos - {selectedCategory}</h3>
                 <div className="h-0.5 flex-1 bg-black/20 ml-6" />
@@ -177,8 +156,11 @@ const Gallery = () => {
                 {videos.map((video) => (
                   <div key={video.id} className="group flex flex-col">
                     <div 
-                      className="relative aspect-video overflow-hidden rounded-2xl border-2 border-s3 bg-s1 transition-all duration-500 hover:border-p1"
-                      style={{ boxShadow: 'none', backgroundColor: '#FFFFFF' }}
+                      className="relative aspect-video overflow-hidden rounded-2xl border-2 border-[#FCE124] transition-all duration-500 hover:border-p1"
+                      style={{ 
+                        boxShadow: 'none',
+                        backgroundColor: '#FCE124'
+                      }}
                     >
                       {video.url && (
                         <ReactPlayer
@@ -195,8 +177,8 @@ const Gallery = () => {
                 ))}
               </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </Element>
 
       {/* Lightbox Modal */}
