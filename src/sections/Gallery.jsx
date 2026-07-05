@@ -20,7 +20,6 @@ const Gallery = () => {
     setVideos([]);
     setPhotos([]);
     try {
-      // 🔥 PERBAIKI: Panggil API galleries, BUKAN categories
       const response = await axios.get(`${urlAPIBE}/api/v1/public/galleries?category_name=${category_name}`, {
         headers: { "X-API-KEY": APIKEY }
       });
@@ -68,7 +67,15 @@ const Gallery = () => {
 
   return (
     <section className="mt-2">
-      <Element name="gallery" className="g7 relative pb-32 pt-24 max-lg:pb-24 max-md:py-16">
+      {/* 🔥 TAMBAHKAN BACKGROUND #FCE124 DAN HILANGKAN SHADOW */}
+      <Element 
+        name="gallery" 
+        className="g7 relative pb-32 pt-24 max-lg:pb-24 max-md:py-16"
+        style={{ 
+          backgroundColor: '#FCE124',
+          boxShadow: 'none'
+        }}
+      >
         <div className="container">
           <div className="flex items-center">
             <div className="relative mr-6 flex-540 max-xl:flex-280 max-lg:flex256 max-md:flex-100">
@@ -86,6 +93,7 @@ const Gallery = () => {
                     <button
                       onClick={() => fetchImages(title)}
                       className="size-22 download_tech-icon_before relative flex items-center justify-center rounded-half border-2 border-s3 bg-s1 transition-borderColor duration-500"
+                      style={{ boxShadow: 'none' }}
                     >
                       <span className="absolute -top-2 rotate-90">
                         <Marker fill={"#C4CBF5"} />
@@ -108,8 +116,10 @@ const Gallery = () => {
               <Slider {...photoSliderSettings} className="gallery-slider">
                 {photos.map((photo) => (
                   <div key={photo.id} className="px-3">
+                    {/* 🔥 HILANGKAN SHADOW PADA CARD FOTO */}
                     <div 
-                      className="group relative aspect-square cursor-pointer overflow-hidden rounded-2xl border-2 border-s3 bg-s1 shadow-2xl transition-all duration-500 hover:border-p1"
+                      className="group relative aspect-square cursor-pointer overflow-hidden rounded-2xl border-2 border-s3 bg-s1 transition-all duration-500 hover:border-p1"
+                      style={{ boxShadow: 'none' }}
                       onClick={() => setSelectedImage(photo)}
                     >
                       {photo.file && (
@@ -141,7 +151,11 @@ const Gallery = () => {
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                 {videos.map((video) => (
                   <div key={video.id} className="group flex flex-col">
-                    <div className="relative aspect-video overflow-hidden rounded-2xl border-2 border-s3 bg-s1 shadow-2xl transition-all duration-500 hover:border-p1">
+                    {/* 🔥 HILANGKAN SHADOW PADA CARD VIDEO */}
+                    <div 
+                      className="relative aspect-video overflow-hidden rounded-2xl border-2 border-s3 bg-s1 transition-all duration-500 hover:border-p1"
+                      style={{ boxShadow: 'none' }}
+                    >
                       {video.url && (
                         <ReactPlayer
                           url={video.url}
