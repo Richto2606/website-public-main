@@ -6,13 +6,15 @@ const Daftar = () => {
   return (
     <section>
       <Element name="panduan pendaftaran">
-        {/* 🔥 UBAH BACKGROUND KUNING TUA MENJADI #FCE124 */}
-        <div className="container" style={{ backgroundColor: '#FCE124' }}>
+        {/* 🔥 BACKGROUND LUAR: PUTIH */}
+        <div className="container" style={{ backgroundColor: '#FFFFFF' }}>
           <div 
             className="relative flex md:flex-wrap flex-nowrap border-2 border-s3 rounded-7xl md:overflow-hidden max-md:flex-col feature-after md:g7 max-md:border-none max-md:rounded-none max-md:gap-3"
           >
+            {/* 🔥 BACKGROUND DALAM: KUNING #FCE124 */}
             <div
               className="relative z-2 md:px-10 px-5 md:pb-10 pb-5 max-md:g7 max-md:border-2 max-md:border-s3 max-md:rounded-3xl flex-1"
+              style={{ backgroundColor: '#FCE124' }}
             >
               <div className="w-full flex justify-start items-start">
                 <div className="-ml-3 mb-12 flex items-center justify-center flex-col">
