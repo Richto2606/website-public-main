@@ -4,33 +4,32 @@ import { homes, daftarAsrama } from "../constants/index.jsx";
 
 const Beranda = () => {
   return (
-    // 🔥 UBAH BACKGROUND: PUTIH (bg-white)
     <section className="bg-white pt-60 pb-10 max-lg:pt-52 max-lg:pb-36 max-md:pt-36 max-md:pb-32">
       <Element name="beranda">
         <div className="container flex justify-between items-center space-x-[300px]">
           <div className="relative z-2 max-w-512 max-lg:max-w-388">
-            {/* 🔥 UBAH WARNA JUDUL: HITAM (text-black) */}
             <h1 className="mb-6 h1 text-black uppercase max-lg:mb-7 max-lg:h2 max-md:mb-4 max-md:text-5xl max-md:leading-12">
               Asrama Putra Kutai Kartanegara
             </h1>
-            {/* 🔥 UBAH WARNA DESKRIPSI: HITAM (text-black) */}
             <p className="max-w-440 mb-14 body-1 text-black max-md:mb-10">
               <strong>Daftarkan diri anda sekarang</strong> dan jadilah bagian dari keluarga besar Asrama Kutai Negara
               di Yogyakarta. Asrama ini menjadi pilihan tepat bagi Anda yang ingin fokus belajar, berkembang, dan meraih prestasi.
             </p>
             <div className="flex space-x-4">
-              {/* 🔥 UBAH WARNA TOMBOL: KUNING DENGAN TEKS HITAM */}
+              {/* 🔥 TOMBOL PERTAMA: PUTIH + HILANGKAN SHADOW */}
               <Button 
                 textFont={'text-black'} 
                 href={daftarAsrama}
-                className="bg-[#FCE124] hover:bg-[#FFD700] text-black"
+                className="bg-white hover:bg-gray-100 text-black shadow-none border-2 border-white hover:border-gray-200"
               >
                 Daftar Disini
               </Button>
+              
+              {/* 🔥 TOMBOL KEDUA: PUTIH + HILANGKAN SHADOW */}
               <LinkScroll to="panduan pendaftaran" offset={-100} spy smooth>
                 <Button 
                   textFont={'text-black'}
-                  className="bg-[#FCE124] hover:bg-[#FFD700] text-black"
+                  className="bg-white hover:bg-gray-100 text-black shadow-none border-2 border-white hover:border-gray-200"
                 >
                   Panduan Pendaftaran
                 </Button>
@@ -45,7 +44,6 @@ const Beranda = () => {
                     className="object-contain"
                   />
                   <div>
-                    {/* 🔥 UBAH WARNA TEKS FASILITAS: HITAM (text-black) */}
                     <p className="font-semibold text-black">{text}</p>
                   </div>
                 </div>
