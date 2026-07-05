@@ -6,7 +6,8 @@ const Daftar = () => {
   return (
     <section>
       <Element name="panduan pendaftaran">
-        <div className="container">
+        {/* 🔥 UBAH BACKGROUND KUNING TUA MENJADI #FCE124 */}
+        <div className="container" style={{ backgroundColor: '#FCE124' }}>
           <div 
             className="relative flex md:flex-wrap flex-nowrap border-2 border-s3 rounded-7xl md:overflow-hidden max-md:flex-col feature-after md:g7 max-md:border-none max-md:rounded-none max-md:gap-3"
           >
@@ -24,17 +25,14 @@ const Daftar = () => {
                 </div>
               </div>
 
-              {/* 🔥 UBAH: text menjadi HITAM */}
               <p className="caption mb-5 max-md:mb-6 text-black">
                 Panduan Pendaftaran
               </p>
               
-              {/* 🔥 UBAH: text menjadi HITAM */}
               <h2 className="mb-7 h3 text-black max-md:mb-6 max-md:h5">
                 Bagaimana cara saya mendaftar?
               </h2>
               
-              {/* 🔥 UBAH: text menjadi HITAM */}
               <p className="mb-11 body-1 text-black max-md:mb-8 max-md:body-3">
                 Dengan mengikuti tahapan ini, Anda akan resmi menjadi bagian dari Asrama Pelajar & Mahasiswa Kutai Kartanegara di Yogyakarta. Segera daftar dan pastikan ketersediaan tempat Anda!
               </p>
@@ -55,12 +53,10 @@ const Daftar = () => {
                     />
                   </div>
 
-                  {/* 🔥 UBAH: text menjadi HITAM */}
                   <h3 className="relative z-2 max-w-36 mx-auto my-0 base-small text-center uppercase text-black">
                     {title}
                   </h3>
                   
-                  {/* 🔥 UBAH: text menjadi HITAM */}
                   <h3 className="relative mt-2 max-w-40 mx-auto my-0 small-1 text-center text-black">
                     {description}
                   </h3>
