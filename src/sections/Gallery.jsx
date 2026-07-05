@@ -67,111 +67,113 @@ const Gallery = () => {
 
   return (
     <section className="mt-2">
-      {/* 🔥 TAMBAHKAN BACKGROUND #FCE124 DAN HILANGKAN SHADOW */}
+      {/* 🔥 BACKGROUND KUNING #FCE124 dengan inline style */}
       <Element 
         name="gallery" 
         className="g7 relative pb-32 pt-24 max-lg:pb-24 max-md:py-16"
         style={{ 
-          backgroundColor: '#FCE124',
-          boxShadow: 'none'
+          backgroundColor: '#FCE124 !important',
+          boxShadow: 'none !important',
+          background: '#FCE124 !important'
         }}
       >
-        <div className="container">
-          <div className="flex items-center">
-            <div className="relative mr-6 flex-540 max-xl:flex-280 max-lg:flex256 max-md:flex-100">
-              <div className="mb-8">
-                <h2 className="text-2xl font-bold text-black mb-4">GALLERY ASRAMA KAMI</h2>
+        {/* 🔥 TAMBAHKAN DIV UNTUK MENIMPA BACKGROUND */}
+        <div style={{ backgroundColor: '#FCE124', boxShadow: 'none' }}>
+          <div className="container">
+            <div className="flex items-center">
+              <div className="relative mr-6 flex-540 max-xl:flex-280 max-lg:flex256 max-md:flex-100">
+                <div className="mb-8">
+                  <h2 className="text-2xl font-bold text-black mb-4">GALLERY ASRAMA KAMI</h2>
+                </div>
+
+                <p className="body-1 mb-10 max-w-md text-black">
+                  Berikut kumpulan dokumentasi dari aktivitas kami selama di asrama dan juga beberapa foto dari fasilitas yang ada di asrama.
+                </p>
+
+                <ul className="flex flex-wrap items-center gap-[80px]">
+                  {links.map(({ id, title, url, icon }) => (
+                    <li key={id} className="download_tech-link ">
+                      <button
+                        onClick={() => fetchImages(title)}
+                        className="size-22 download_tech-icon_before relative flex items-center justify-center rounded-half border-2 border-s3 bg-s1 transition-borderColor duration-500"
+                        style={{ boxShadow: 'none !important' }}
+                      >
+                        <span className="absolute -top-2 rotate-90">
+                          <Marker fill={"#C4CBF5"} />
+                        </span>
+                        <img src={"/images/lines.svg"} alt="lines" className="absolute size-13/20 object-contain" />
+                        <span className="download_tech-icon">{icon}</span>
+                      </button>
+                    </li>
+                  ))}
+                </ul>
               </div>
-
-              <p className="body-1 mb-10 max-w-md text-black">
-                Berikut kumpulan dokumentasi dari aktivitas kami selama di asrama dan juga beberapa foto dari fasilitas yang ada di asrama.
-              </p>
-
-              <ul className="flex flex-wrap items-center gap-[80px]">
-                {links.map(({ id, title, url, icon }) => (
-                  <li key={id} className="download_tech-link ">
-                    <button
-                      onClick={() => fetchImages(title)}
-                      className="size-22 download_tech-icon_before relative flex items-center justify-center rounded-half border-2 border-s3 bg-s1 transition-borderColor duration-500"
-                      style={{ boxShadow: 'none' }}
-                    >
-                      <span className="absolute -top-2 rotate-90">
-                        <Marker fill={"#C4CBF5"} />
-                      </span>
-                      <img src={"/images/lines.svg"} alt="lines" className="absolute size-13/20 object-contain" />
-                      <span className="download_tech-icon">{icon}</span>
-                    </button>
-                  </li>
-                ))}
-              </ul>
             </div>
-          </div>
 
-          {photos.length > 0 && (
-            <div className="my-10 w-full">
-              <div className="flex items-center justify-between mb-8">
-                <h3 className="h4 text-black">Photos - {selectedCategory}</h3>
-                <div className="h-0.5 flex-1 bg-s3 ml-6 opacity-20" />
-              </div>
-              <Slider {...photoSliderSettings} className="gallery-slider">
-                {photos.map((photo) => (
-                  <div key={photo.id} className="px-3">
-                    {/* 🔥 HILANGKAN SHADOW PADA CARD FOTO */}
-                    <div 
-                      className="group relative aspect-square cursor-pointer overflow-hidden rounded-2xl border-2 border-s3 bg-s1 transition-all duration-500 hover:border-p1"
-                      style={{ boxShadow: 'none' }}
-                      onClick={() => setSelectedImage(photo)}
-                    >
-                      {photo.file && (
-                        <img
-                          src={urlAPIBE + photo.file}
-                          alt={photo.title}
-                          className="size-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
-                        />
-                      )}
-                      <div className="absolute inset-0 flex items-end bg-gradient-to-t from-black/80 via-black/20 to-transparent p-6 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
-                        <div className="transform translate-y-4 transition-transform duration-500 group-hover:translate-y-0">
-                          <p className="h6 text-p1 mb-1">{photo.title}</p>
-                          <p className="body-3 text-s1">Klik untuk memperbesar</p>
+            {photos.length > 0 && (
+              <div className="my-10 w-full">
+                <div className="flex items-center justify-between mb-8">
+                  <h3 className="h4 text-black">Photos - {selectedCategory}</h3>
+                  <div className="h-0.5 flex-1 bg-s3 ml-6 opacity-20" />
+                </div>
+                <Slider {...photoSliderSettings} className="gallery-slider">
+                  {photos.map((photo) => (
+                    <div key={photo.id} className="px-3">
+                      <div 
+                        className="group relative aspect-square cursor-pointer overflow-hidden rounded-2xl border-2 border-s3 bg-s1 transition-all duration-500 hover:border-p1"
+                        style={{ boxShadow: 'none !important' }}
+                        onClick={() => setSelectedImage(photo)}
+                      >
+                        {photo.file && (
+                          <img
+                            src={urlAPIBE + photo.file}
+                            alt={photo.title}
+                            className="size-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                          />
+                        )}
+                        <div className="absolute inset-0 flex items-end bg-gradient-to-t from-black/80 via-black/20 to-transparent p-6 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
+                          <div className="transform translate-y-4 transition-transform duration-500 group-hover:translate-y-0">
+                            <p className="h6 text-p1 mb-1">{photo.title}</p>
+                            <p className="body-3 text-s1">Klik untuk memperbesar</p>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                ))}
-              </Slider>
-            </div>
-          )}
+                  ))}
+                </Slider>
+              </div>
+            )}
 
-          {videos.length > 0 && (
-            <div className="my-20 w-full">
-              <div className="flex items-center justify-between mb-8">
-                <h3 className="h4 text-black">Videos - {selectedCategory}</h3>
-                <div className="h-0.5 flex-1 bg-s3 ml-6 opacity-20" />
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                {videos.map((video) => (
-                  <div key={video.id} className="group flex flex-col">
-                    {/* 🔥 HILANGKAN SHADOW PADA CARD VIDEO */}
-                    <div 
-                      className="relative aspect-video overflow-hidden rounded-2xl border-2 border-s3 bg-s1 transition-all duration-500 hover:border-p1"
-                      style={{ boxShadow: 'none' }}
-                    >
-                      {video.url && (
-                        <ReactPlayer
-                          url={video.url}
-                          width="100%"
-                          height="100%"
-                          controls={true}
-                          light={true}
-                        />
-                      )}
+            {videos.length > 0 && (
+              <div className="my-20 w-full">
+                <div className="flex items-center justify-between mb-8">
+                  <h3 className="h4 text-black">Videos - {selectedCategory}</h3>
+                  <div className="h-0.5 flex-1 bg-s3 ml-6 opacity-20" />
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                  {videos.map((video) => (
+                    <div key={video.id} className="group flex flex-col">
+                      <div 
+                        className="relative aspect-video overflow-hidden rounded-2xl border-2 border-s3 bg-s1 transition-all duration-500 hover:border-p1"
+                        style={{ boxShadow: 'none !important' }}
+                      >
+                        {video.url && (
+                          <ReactPlayer
+                            url={video.url}
+                            width="100%"
+                            height="100%"
+                            controls={true}
+                            light={true}
+                          />
+                        )}
+                      </div>
+                      <h4 className="mt-4 h6 text-black transition-colors group-hover:text-p1">{video.title}</h4>
                     </div>
-                    <h4 className="mt-4 h6 text-black transition-colors group-hover:text-p1">{video.title}</h4>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
-            </div>
-          )}
+            )}
+          </div>
         </div>
       </Element>
 
