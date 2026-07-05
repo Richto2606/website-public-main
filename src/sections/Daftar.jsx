@@ -4,17 +4,15 @@ import { panduan } from "../constants/index.jsx";
 
 const Daftar = () => {
   return (
-    // 🔥 TAMBAHKAN BACKGROUND #FCE124 dan HILANGKAN SHADOW
-    <section style={{ backgroundColor: '#FCE124', boxShadow: 'none' }}>
+    <section>
       <Element name="panduan pendaftaran">
-        <div className="container">
+        {/* 🔥 TAMBAHKAN BACKGROUND #FCE124 DI CONTAINER */}
+        <div className="container" style={{ backgroundColor: '#FCE124', boxShadow: 'none' }}>
           <div 
             className="relative flex md:flex-wrap flex-nowrap border-2 border-s3 rounded-7xl md:overflow-hidden max-md:flex-col feature-after md:g7 max-md:border-none max-md:rounded-none max-md:gap-3"
-            style={{ boxShadow: 'none' }}
           >
             <div
               className="relative z-2 md:px-10 px-5 md:pb-10 pb-5 max-md:g7 max-md:border-2 max-md:border-s3 max-md:rounded-3xl flex-1"
-              style={{ boxShadow: 'none' }}
             >
               <div className="w-full flex justify-start items-start">
                 <div className="-ml-3 mb-12 flex items-center justify-center flex-col">
