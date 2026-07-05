@@ -12,8 +12,8 @@ const Button = ({
 }) => {
   const Inner = () => (
     <>
-      {/* 🔥 UBAH WARNA BUTTON: PUTIH */}
-      <span className="relative flex items-center min-h-[60px] px-4 bg-white rounded-2xl inner-before group-hover:before:opacity-100 overflow-hidden hover:bg-gray-100 transition-colors duration-300">
+      {/* 🔥 BACKGROUND: KUNING (#FCE124), TEKS: HITAM */}
+      <span className="relative flex items-center min-h-[60px] px-4 bg-[#FCE124] rounded-2xl inner-before group-hover:before:opacity-100 overflow-hidden hover:bg-[#FFD700] transition-colors duration-300">
         <span className="absolute -left-[1px]">
           <Marker markerFill={markerFill || "#000000"} />
         </span>
@@ -26,13 +26,13 @@ const Button = ({
           />
         )}
 
-        {/* 🔥 UBAH WARNA TEKS: HITAM */}
+        {/* 🔥 TEKS: HITAM */}
         <span className={`relative z-2 font-poppins base-bold text-black uppercase`}>
           {children}
         </span>
       </span>
 
-      {/* 🔥 HAPUS GLOW ATAU UBAH WARNA */}
+      {/* 🔥 HAPUS GLOW */}
       <span className="glow-before glow-after" style={{ display: 'none' }} />
     </>
   );
@@ -41,6 +41,7 @@ const Button = ({
     <a
       className={clsx(
         "relative p-0.5 rounded-2xl group",
+        // 🔥 HAPUS shadow-500
         containerClassName,
       )}
       href={href}
@@ -53,6 +54,7 @@ const Button = ({
     <button
       className={clsx(
         "relative p-0.5 rounded-2xl group",
+        // 🔥 HAPUS shadow-500
         containerClassName,
       )}
       onClick={onClick}
