@@ -12,8 +12,8 @@ const Button = ({
 }) => {
   const Inner = () => (
     <>
-      {/* 🔥 UBAH WARNA BUTTON: KUNING (#FCE124) */}
-      <span className="relative flex items-center min-h-[60px] px-4 bg-[#FCE124] rounded-2xl inner-before group-hover:before:opacity-100 overflow-hidden hover:bg-[#FFD700] transition-colors duration-300">
+      {/* 🔥 UBAH WARNA BUTTON: PUTIH */}
+      <span className="relative flex items-center min-h-[60px] px-4 bg-white rounded-2xl inner-before group-hover:before:opacity-100 overflow-hidden hover:bg-gray-100 transition-colors duration-300">
         <span className="absolute -left-[1px]">
           <Marker markerFill={markerFill || "#000000"} />
         </span>
@@ -26,21 +26,21 @@ const Button = ({
           />
         )}
 
-        {/* 🔥 UBAH WARNA TEKS: HITAM (text-black) */}
+        {/* 🔥 UBAH WARNA TEKS: HITAM */}
         <span className={`relative z-2 font-poppins base-bold text-black uppercase`}>
           {children}
         </span>
       </span>
 
-      {/* 🔥 UBAH WARNA GLOW: KUNING */}
-      <span className="glow-before glow-after" />
+      {/* 🔥 HAPUS GLOW ATAU UBAH WARNA */}
+      <span className="glow-before glow-after" style={{ display: 'none' }} />
     </>
   );
   
   return href ? (
     <a
       className={clsx(
-        "relative p-0.5 rounded-2xl shadow-500 group",
+        "relative p-0.5 rounded-2xl group",
         containerClassName,
       )}
       href={href}
@@ -52,7 +52,7 @@ const Button = ({
   ) : (
     <button
       className={clsx(
-        "relative p-0.5 rounded-2xl shadow-500 group",
+        "relative p-0.5 rounded-2xl group",
         containerClassName,
       )}
       onClick={onClick}
