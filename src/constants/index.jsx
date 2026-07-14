@@ -225,7 +225,7 @@ export const panduan = [
     id: "0",
     icon: "/images/panduan/tahap1.png",
     title: "Menghubungi Pengelola Asrama",
-    description: "Calon penghuni dapat memulai proses pendaftaran dengan menghubungi admin asrama melalui nomor WhatsApp yang telah disediakan. Tim kami siap memberikan informasi lengkap terkait persyaratan dan proses pendaftaran.",
+    description: "Calon penghuni dapat memulai proses pendaftaran dengan menghubungi admin asrama melalui nomor WhatsApp yang telah disediakan.Admin akan memberikan informasi lengkap terkait persyaratan dan proses pendaftarannya.",
     isButton: true,
     buttonData: {
       icon: "/images/icons/hubungi-kami.svg",
