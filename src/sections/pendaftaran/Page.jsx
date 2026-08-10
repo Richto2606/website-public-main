@@ -49,13 +49,13 @@ export default function PendaftaranPage() {
         text: 'Anda harus login terlebih dahulu untuk mendaftar.',
         confirmButtonColor: '#FCE124'
       });
-      window.location.href = 'https://admin.asramaputrakukar.my.id/login';
+      window.location.href = 'http://127.0.0.1:8000/login';
       return;
     }
 
     const fetchUserData = async () => {
       try {
-        const response = await fetch('https://asramaputrakukar.my.id/api/v1/user/profile', {
+        const response = await fetch('http://127.0.0.1:8000/api/v1/user/profile', {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -175,7 +175,7 @@ export default function PendaftaranPage() {
     }
 
     try {
-      const response = await fetch('https://asramaputrakukar.my.id/api/v1/pendaftaran', {
+      const response = await fetch('http://127.0.0.1:8000/api/v1/pendaftaran', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,

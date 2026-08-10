@@ -191,32 +191,27 @@ export const faq = [
   {
     id: "1",
     question: "Bagaimana cara mendaftar di asrama?",
-    answer:
-      "Jawaban",
+    answer: "Jawaban",
   },
   {
     id: "2",
     question: "Apa saja fasilitas yang tersedia di asrama?",
-    answer:
-      "Jawaban",
+    answer: "Jawaban",
   },
   {
     id: "3",
     question: "Apakah penghuni diperbolehkan menerima tamu?",
-    answer:
-      "Jawaban",
+    answer: "Jawaban",
   },
   {
     id: "4",
     question: "Bagaimana pengelolaan kebersihan di asrama?",
-    answer:
-      "Jawaban",
+    answer: "Jawaban",
   },
   {
     id: "5",
     question: "Berapa biaya tinggal di asrama?",
-    answer:
-      "Jawaban",
+    answer: "Jawaban",
   },
 ];
 
@@ -283,17 +278,11 @@ export const links = [
   },
 ];
 
-// Sesuaikan dengan domain utama Anda
-const urlAPIFE = "https://asramaputrakukar.my.id"; 
+// ✅ PERBAIKI INI
+const urlAPIFE = "http://127.0.0.1:8000"; 
+export const urlAPIBE = "http://127.0.0.1:8000/api/v1"; 
+export const APIKEY = "881182541952993820593968";
 
-// INI KUNCI UTAMANYA: Arahkan ke gerbang API cPanel Anda
-export const urlAPIBE = "https://api.asramaputrakukar.my.id"; 
-
-export const APIKEY = "881182541952993820593968";;
-
-// Gunakan path relatif agar aman saat di-deploy
 export const daftarAsrama = "/pendaftaran";
 export const adminAsrama = "/login"; 
-
-// Ini otomatis akan menjadi: https://api.asramaputrakukar.my.id/api/v1/public
-export const axiosUrl = urlAPIBE + "/api/v1/public";
+export const axiosUrl = urlAPIBE + "/public";

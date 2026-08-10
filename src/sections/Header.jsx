@@ -30,7 +30,7 @@ const Header = () => {
     localStorage.removeItem("token");
     setIsLoggedIn(false);
     setIsOpen(false);
-    window.location.href = "https://admin.asramaputrakukar.my.id/login";
+    window.location.href = "http://127.0.0.1:8000/login";
   };
 
   // 🔥 SEMUA MENU TETAP HITAM SAAT DIKLIK
@@ -123,7 +123,7 @@ const NavLinkExternal = ({ title, href, onClick }) => (
                   ) : (
                     <NavLinkExternal 
                       title="admin" 
-                      href="https://admin.asramaputrakukar.my.id/login"
+                      href="http://127.0.0.1:8000/login"
                     />
                   )}
                 </li>
