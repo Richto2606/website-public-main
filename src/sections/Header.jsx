@@ -1,7 +1,7 @@
 import { Link as LinkScroll } from "react-scroll";
 import { useEffect, useState } from "react";
 import clsx from "clsx";
-import { adminAsrama } from "../constants";
+import { adminAsrama, urlAPIFE } from "../constants";
 
 const Header = () => {
   const [hasScrolled, setHasScrolled] = useState(false);
@@ -30,7 +30,7 @@ const Header = () => {
     localStorage.removeItem("token");
     setIsLoggedIn(false);
     setIsOpen(false);
-    window.location.href = "http://127.0.0.1:8000/login";
+    window.location.href = `${urlAPIFE}/login`;
   };
 
   // 🔥 SEMUA MENU TETAP HITAM SAAT DIKLIK
@@ -123,7 +123,7 @@ const NavLinkExternal = ({ title, href, onClick }) => (
                   ) : (
                     <NavLinkExternal 
                       title="admin" 
-                      href="http://127.0.0.1:8000/login"
+                      href={`${urlAPIFE}/login`}
                     />
                   )}
                 </li>

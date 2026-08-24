@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
@@ -11,6 +11,7 @@ export default function PendaftaranPage() {
     program_studi: '',
     jenis_kelamin: 'Laki-laki',
     no_hp: '',
+    umur: '',
     email: '',
     alamat_asal: '',
     nama_wali: '',
@@ -22,69 +23,6 @@ export default function PendaftaranPage() {
 
   const [loading, setLoading] = useState(false);
   const [userLoaded, setUserLoaded] = useState(false);
-
-  useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const tokenFromUrl = urlParams.get('token');
-    
-    console.log('🔍 ===== PUBLIC MAIN DEBUG =====');
-    console.log('🔍 URL:', window.location.href);
-    console.log('🔍 Token dari URL:', tokenFromUrl);
-    
-    if (tokenFromUrl) {
-      localStorage.setItem('token', tokenFromUrl);
-      window.history.replaceState({}, document.title, window.location.pathname);
-      console.log('✅ Token saved from URL:', tokenFromUrl);
-    }
-
-    const token = localStorage.getItem('token');
-    console.log('🔍 Token di localStorage:', token);
-    console.log('🔍 User di localStorage:', localStorage.getItem('user'));
-    console.log('🔍 ===== END DEBUG =====');
-
-    if (!token) {
-      Swal.fire({
-        icon: 'warning',
-        title: 'Akses Ditolak',
-        text: 'Anda harus login terlebih dahulu untuk mendaftar.',
-        confirmButtonColor: '#FCE124'
-      });
-      window.location.href = 'http://127.0.0.1:8000/login';
-      return;
-    }
-
-    const fetchUserData = async () => {
-      try {
-        const response = await fetch('http://127.0.0.1:8000/api/v1/user/profile', {
-          method: 'GET',
-          headers: {
-            'Authorization': `Bearer ${token}`,
-            'Accept': 'application/json',
-            'x-api-key': '881182541952993820593968'
-          }
-        });
-
-        if (response.ok) {
-          const result = await response.json();
-          const userData = result.data || result;
-          
-          setFormData(prev => ({
-            ...prev,
-            email: userData.email || '',
-            nama_lengkap: userData.name || userData.nama_lengkap || ''
-          }));
-          setUserLoaded(true);
-          console.log('✅ User data loaded:', userData);
-        } else {
-          console.error('❌ Gagal ambil data user:', response.status);
-        }
-      } catch (error) {
-        console.error('❌ Error fetch user data:', error);
-      }
-    };
-
-    fetchUserData();
-  }, []);
 
   const handleChange = (e) => {
     console.log('🔄 handleChange:', e.target.name, '=', e.target.value);
@@ -132,19 +70,7 @@ export default function PendaftaranPage() {
     e.preventDefault();
     setLoading(true);
 
-    const token = localStorage.getItem('token');
-    console.log('🔍 Token saat submit:', token);
-
-    if (!token) {
-      Swal.fire({
-        icon: 'warning',
-        title: 'Akses Ditolak',
-        text: 'Anda harus login terlebih dahulu untuk mendaftar.',
-        confirmButtonColor: '#FCE124'
-      });
-      setLoading(false);
-      return;
-    }
+    console.log('🔍 Submit pendaftaran publik');
 
     console.log('📦 FORM DATA STATE SEBELUM KIRIM:', formData);
 
@@ -155,6 +81,7 @@ export default function PendaftaranPage() {
     formDataToSend.append('program_studi', formData.program_studi || '');
     formDataToSend.append('jenis_kelamin', formData.jenis_kelamin || 'Laki-laki');
     formDataToSend.append('no_hp', formData.no_hp || '');
+    formDataToSend.append('umur', formData.umur || '');
     formDataToSend.append('email', formData.email || '');
     formDataToSend.append('alamat_asal', formData.alamat_asal || '');
     formDataToSend.append('nama_wali', formData.nama_wali || '');
@@ -175,10 +102,9 @@ export default function PendaftaranPage() {
     }
 
     try {
-      const response = await fetch('http://127.0.0.1:8000/api/v1/pendaftaran', {
+      const response = await fetch('/api/v1/public/pendaftaran', {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${token}`,
           'x-api-key': '881182541952993820593968'
         },
         body: formDataToSend
@@ -203,7 +129,8 @@ export default function PendaftaranPage() {
           program_studi: '',
           jenis_kelamin: 'Laki-laki',
           no_hp: '',
-          email: formData.email,
+          umur: '',
+          email: '',
           alamat_asal: '',
           nama_wali: '',
           semester: '',
@@ -320,17 +247,33 @@ export default function PendaftaranPage() {
             />
           </div>
 
-          <div>
-            <label className="block font-semibold text-black mb-1.5 text-sm">No. HP / WhatsApp</label>
-            <input 
-              type="text" 
-              name="no_hp" 
-              value={formData.no_hp} 
-              onChange={handleChange} 
-              className={inputStyle}
-              placeholder="Contoh: 081234567890"
-              required 
-            />
+          <div className="flex flex-col sm:flex-row gap-5">
+            <div className="flex-1">
+              <label className="block font-semibold text-black mb-1.5 text-sm">Umur</label>
+              <input 
+                type="number" 
+                name="umur" 
+                value={formData.umur} 
+                onChange={handleChange} 
+                className={inputStyle}
+                placeholder="Contoh: 19"
+                min="1"
+                max="120"
+                required 
+              />
+            </div>
+            <div className="flex-1">
+              <label className="block font-semibold text-black mb-1.5 text-sm">No. HP / WhatsApp</label>
+              <input 
+                type="text" 
+                name="no_hp" 
+                value={formData.no_hp} 
+                onChange={handleChange} 
+                className={inputStyle}
+                placeholder="Contoh: 081234567890"
+                required 
+              />
+            </div>
           </div>
 
           <div>
@@ -340,13 +283,12 @@ export default function PendaftaranPage() {
               name="email" 
               value={formData.email} 
               onChange={handleChange} 
-              className={`w-full p-3 border border-slate-200 rounded-xl transition-all duration-300 ${userLoaded ? 'bg-slate-100 text-gray-500 cursor-not-allowed border-dashed' : 'bg-yellow-50 focus:outline-none focus:border-[#FCE124]'}`}
-              placeholder={userLoaded ? 'Email dari akun Anda' : 'Memuat email...'}
-              readOnly={userLoaded}
+              className={`${inputStyle}`}
+              placeholder="Masukkan email"
               required 
             />
             <p className="text-xs font-medium text-gray-400 mt-1.5 px-1">
-              {userLoaded ? '✉️ Email terkunci otomatis dari akun login Anda' : '⏳ Sedang memuat data user...'}
+              Email wajib diisi agar data pendaftaran tercatat.
             </p>
           </div>
 

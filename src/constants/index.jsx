@@ -278,8 +278,7 @@ export const links = [
   },
 ];
 
-// ✅ PERBAIKI INI
-const urlAPIFE = "http://127.0.0.1:8000"; 
+export const urlAPIFE = "http://127.0.0.1:8000"; 
 export const urlAPIBE = "http://127.0.0.1:8000/api/v1"; 
 export const APIKEY = "881182541952993820593968";
 

@@ -1,5 +1,5 @@
 import { Element } from "react-scroll";
-import { axiosUrl, links, APIKEY, urlAPIBE } from "../constants/index.jsx";
+import { axiosUrl, links, APIKEY, urlAPIFE } from "../constants/index.jsx";
 import { Marker } from "../components/Marker.jsx";
 import axios from "axios";
 import { useState, useEffect } from "react";
@@ -20,7 +20,7 @@ const Gallery = () => {
     setVideos([]);
     setPhotos([]);
     try {
-      const response = await axios.get(`${urlAPIBE}/api/v1/public/galleries?category_name=${category_name}`, {
+      const response = await axios.get(`${urlAPIFE}/api/v1/public/galleries?category_name=${category_name}`, {
         headers: { "X-API-KEY": APIKEY }
       });
 
@@ -128,7 +128,7 @@ const Gallery = () => {
                     >
                       {photo.file && (
                         <img
-                          src={urlAPIBE + photo.file}
+                          src={urlAPIFE + photo.file}
                           alt={photo.title}
                           className="size-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
                         />
@@ -199,7 +199,7 @@ const Gallery = () => {
             
             <div className="relative w-full rounded-2xl overflow-hidden border-2 border-s3 bg-s1 shadow-2xl">
               <img
-                src={urlAPIBE + selectedImage.file}
+                src={urlAPIFE + selectedImage.file}
                 alt={selectedImage.title}
                 className="max-h-[80vh] w-full object-contain"
               />
