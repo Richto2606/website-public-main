@@ -11,6 +11,7 @@ export default function PendaftaranPage() {
     program_studi: '',
     jenis_kelamin: 'Laki-laki',
     no_hp: '',
+    tanggal_lahir: '',
     umur: '',
     email: '',
     alamat_asal: '',
@@ -80,8 +81,9 @@ export default function PendaftaranPage() {
     formDataToSend.append('universitas', formData.universitas || '');
     formDataToSend.append('program_studi', formData.program_studi || '');
     formDataToSend.append('jenis_kelamin', formData.jenis_kelamin || 'Laki-laki');
-    formDataToSend.append('no_hp', formData.no_hp || '');
-    formDataToSend.append('umur', formData.umur || '');
+     formDataToSend.append('no_hp', formData.no_hp || '');
+     formDataToSend.append('tanggal_lahir', formData.tanggal_lahir || '');
+     formDataToSend.append('umur', formData.umur || '');
     formDataToSend.append('email', formData.email || '');
     formDataToSend.append('alamat_asal', formData.alamat_asal || '');
     formDataToSend.append('nama_wali', formData.nama_wali || '');
@@ -116,10 +118,14 @@ export default function PendaftaranPage() {
       if (response.ok) {
         Swal.fire({
           icon: 'success',
-          title: 'Berhasil!',
-          text: 'Pendaftaran Anda berhasil dikirim.',
-          showConfirmButton: false,
-          timer: 2000
+          title: 'Yeay, Pendaftaran Anda Berhasil! 🏠',
+          text: 'Terima kasih sudah mendaftar di asrama kami. Langkah selanjutnya, tim kami akan segera menghubungi Anda via WhatsApp untuk koordinasi dan konfirmasi data. Sampai jumpa di asrama!',
+          showConfirmButton: true,
+          confirmButtonText: 'Oke',
+          timer: 40000,
+          timerProgressBar: true
+        }).then(() => {
+          navigate('/');
         });
 
         setFormData({
@@ -128,9 +134,10 @@ export default function PendaftaranPage() {
           universitas: '',
           program_studi: '',
           jenis_kelamin: 'Laki-laki',
-          no_hp: '',
-          umur: '',
-          email: '',
+           no_hp: '',
+           tanggal_lahir: '',
+           umur: '',
+           email: '',
           alamat_asal: '',
           nama_wali: '',
           semester: '',
@@ -141,10 +148,6 @@ export default function PendaftaranPage() {
 
         const fileInput = document.getElementById('file_berkas');
         if (fileInput) fileInput.value = '';
-
-        setTimeout(() => {
-          navigate('/');
-        }, 2000);
 
       } else {
         Swal.fire({
@@ -248,8 +251,19 @@ export default function PendaftaranPage() {
           </div>
 
           <div className="flex flex-col sm:flex-row gap-5">
-            <div className="flex-1">
-              <label className="block font-semibold text-black mb-1.5 text-sm">Umur</label>
+           <div className="flex-1">
+               <label className="block font-semibold text-black mb-1.5 text-sm">Tanggal Lahir</label>
+               <input
+                 type="date"
+                 name="tanggal_lahir"
+                 value={formData.tanggal_lahir}
+                 onChange={handleChange}
+                 className={inputStyle}
+                 required
+               />
+             </div>
+             <div className="flex-1">
+               <label className="block font-semibold text-black mb-1.5 text-sm">Umur</label>
               <input 
                 type="number" 
                 name="umur" 

@@ -123,7 +123,7 @@ const NavLinkExternal = ({ title, href, onClick }) => (
                   ) : (
                     <NavLinkExternal 
                       title="admin" 
-                      href={`${urlAPIFE}/login`}
+                      href={adminAsrama}
                     />
                   )}
                 </li>

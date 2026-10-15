@@ -237,7 +237,7 @@ export const panduan = [
     buttonData: {
       icon: "/images/icons/unduh-panduan.svg",
       text: "Unduh Panduan",
-      href: "https://drive.google.com/file/d/1crflavzjBOqHNDzvk1Osn0KWo2tnZpCD/view",
+      href: "/Panduan_Pendaftaran_Mahasiswa.doc",
     }
   },
   {
@@ -283,5 +283,5 @@ export const urlAPIBE = "http://127.0.0.1:8000/api/v1";
 export const APIKEY = "881182541952993820593968";
 
 export const daftarAsrama = "/pendaftaran";
-export const adminAsrama = "/login"; 
+export const adminAsrama = "http://localhost:3000/login"; 
 export const axiosUrl = urlAPIBE + "/public";
